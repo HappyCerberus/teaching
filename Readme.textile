@@ -1,0 +1,10 @@
+h1. English
+
+This is a Czech language repository. Further information will be presented in Czech language.
+
+h1. Čeština
+
+Tento repozitář obsahuje slidy a ukázkové příklady, které využívám při výuce na fakultě informatiky (Masarykova Univerzita).
+
+Veškeré kódy jsou licencovány pod licencí MIT, veškeré výukové texty jsou licencovány pod CC BY-NC-SA.
+
