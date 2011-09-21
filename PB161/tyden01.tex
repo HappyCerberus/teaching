@@ -1,0 +1,334 @@
+\input{../commons/document-base.tex}
+
+\title{Programování v jazyce C++}
+\subtitle{Cvičení - týden I}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+        \begin{frame}
+                \titlepage
+                \vfill
+                \begin{center}
+                \CcGroupByNcSa{0.33}{0.95ex}\\
+                {\tiny\CcNote{\CcLongnameByNcSa}}
+                \vspace*{2ex}
+                \end{center}
+        \end{frame}
+
+\section{Organizační info}
+\subsection{Představení}
+        
+\begin{frame}
+	\frametitle{Představení}
+	\begin{itemize}
+		\item{Mgr. Šimon Tóth}
+		\begin{itemize}
+			\item{externí lektor C a C++ na FI}
+			\item{výzkumný pracovník Cesnet}
+			\item{Ph.D. student}
+			\item{kontaktní info na konci slidů}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Organizační informace}
+
+\begin{frame}
+	\frametitle{Vstupní požadavky}
+	\begin{itemize}
+		\item{práce s UNIXem, LINUXem (lze dohnat v průběhu cvičení)}
+		\item{znalosti na úrovni předmetu PB071}
+		\begin{itemize}
+			\item{analýza zadání}
+			\item{implementace rozumně rozsáhlých programů v jazyce C}
+			\item{znalost syntaxe jazyka C}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Obecně platné požadavky}
+	\begin{itemize}
+		\item{účast je povinná (max. 2 absence)}
+		\begin{itemize}
+			\item{v případě překročení o 1 jde řešit náhradním příkladem}
+		\end{itemize}
+		\item{týdenní příklady jsou pro vás povinné}
+		\begin{itemize}
+			\item{vzhledem k minimu 0 se ale nekontroluje odevzdávání}
+			\item{pouze součet bodů}
+		\end{itemize}
+		\item{přednášky jsou silně doporučované}
+		\begin{itemize}
+			\item{budou průběžné mini-testy}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Materiály}
+
+\begin{frame}
+	\frametitle{Výukové materiály}
+	\begin{itemize}
+		\item{\url{http://elearning.simontoth.cz}}
+		\item{\url{http://stackoverflow.com/}}
+		\item{\url{http://cplusplus.com}}
+		\item{\url{http://www.cppreference.com/wiki/}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dostupnost slidů}
+	\begin{itemize}
+		\item{\url{http://elearning.simontoth.cz}}
+		\item{\url{https://github.com/HappyCerberus/teaching}}
+	\end{itemize}
+\end{frame}
+
+\section{Nástroje}
+\subsection{Linux}
+
+\begin{frame}
+	\frametitle{Linux}
+	\begin{itemize}
+		\item{domácí úkoly se odevzdávají na Linuxový server (aisa)}
+		\item{práce na cvičení bude probíhat na Linuxových strojích}
+	\end{itemize}
+	\begin{block}{Silně doporučuji!}
+		\begin{itemize}
+		\item{nainstalovat si doma Linux}
+		\item{vybrat si jeden zkonzolový editor}
+		\item{vybrat si jeden grafický editor/IDE}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Provoz Linuxu}
+
+\begin{frame}
+	\frametitle{Provoz Linuxu}
+	\begin{itemize}
+		\item{dual boot}
+		\item{virtualizace}
+		\item{semi-virtualizovaná řešení}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cygwin}
+	\href{http://www.cygwin.com/}{http://www.cygwin.com/}
+	\begin{description}
+		\item[+]{jednoduché na rozchození}
+		\item[-]{\alert{stará verze GCC}}
+		\item[-]{nedoporučuji používat}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dual boot}
+	\begin{description}
+		\item[+]{plný výkon}
+		\item[+]{plnohodnotný Linux}
+		\item[-]{nutné rebooty}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Plná emulace}
+	\begin{description}
+		\item[+]{jednoduché na rozchození}
+		\item[+]{plnohodnotný Linux}
+		\item[$\pm$]{náročné na výkon}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{coLinux}
+	\href{http://www.colinux.org/}{http://www.colinux.org/}
+	\begin{description}
+		\item[+]{jednoduché na rozchození}
+		\item[+]{dobrý výkon}
+		\item[-]{pouze příkazová řádka\footnote{je možné rozjet i GUI}}
+	\end{description}
+\end{frame}
+
+\subsection{Konzolové Editory}
+
+\begin{frame}
+	\frametitle{Konzolové Editory}
+	\begin{itemize}
+		\item{naučte se rozumně ovládat alespoň jeden konzolový editor}
+		\item{někomu může konzolový editor naprosto stačit}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{VIM}
+	\begin{itemize}
+		\item{jednoduše rozšiřitelný}
+		\item{spousta funkcí v základu}
+		\item{pomocí pluginů předčí leckteré IDE}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Emacs}
+	\begin{itemize}
+		\item{umí snad všechno}
+		\item{nepoužívám}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Joe,Pico,Nano}
+	\begin{itemize}
+		\item{jednoduché editory}
+		\item{měli by umět zvýraznit syntax}
+	\end{itemize}
+\end{frame}
+
+\subsection{Grafické Editory a IDE}
+
+\begin{frame}
+	\frametitle{Grafické Editory a IDE}
+	\begin{itemize}
+		\item{pokud nemáte chuť se učit Vim/Emacs}
+		\item{IDE poskytují slušný komfort při vývoji}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Kate}
+	\begin{itemize}
+		\item{syntax}
+		\item{seznam souborů}
+		\item{konzole}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gedit}
+	\begin{itemize}
+		\item{podobné funkce jako Kate}
+		\item{nepoužívám}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Netbeans}
+	\href{http://www.netbeans.org/}{http://www.netbeans.org/}
+	\begin{itemize}
+		\item{od verze 5.5 podpora C/C++}
+		\item{podpora pro vzdálený vývoj přes ssh}
+		\item{nepoužívám}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Eclipse CDT}
+	\href{http://www.eclipse.org/cdt/}{http://www.eclipse.org/cdt/}
+	\begin{itemize}
+		\item{asi nejlepší IDE pro C}
+		\item{problematická instalace ve Windows}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cod::Blocks}
+	\href{http://www.codeblocks.org/}{http://www.codeblocks.org/}
+	\begin{itemize}
+		\item{oficiální IDE pro cvičení}
+	\end{itemize}
+\end{frame}
+
+\section{Kompilace programu}
+\subsection{Důležité parametry GCC}
+
+\begin{frame}
+	\frametitle{Kategorie parametrů GCC}
+	\begin{itemize}
+		\item{jazyk}
+		\item{debugovací a profilovací informace}
+		\item{warningy}
+		\item{optimalizace}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{jazyk}
+	\begin{description}
+		\item[-ansi]{kompilace podle normy ISO C++98/03}
+		\item[-pedantic]{striktní dodržování normy}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{warování}
+	\begin{description}
+		\item[-Wall]{zapne hlavní sadu varování\footnote{\alert{nutné}}}
+		\item[-Wextra]{zapne další důležitá varování\footnote{silně doporučuji}}
+		\item[-Weffc++]{doporučení k efektivnímu C++\footnote{doporučuji}}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{debugovací a profilovací info.}
+	\begin{description}
+		\item[-g(1-3)]{přidání degubovacích informací do binárky}
+		\item[-ggdb(1-3)]{přidání debugovacích informací do binárky pro program gdb (používejte)}
+		\item[-p]{přidání profilovacích informací do binárky}
+		\item[-pg]{přidání profilovacích informací do binárky pro program gprof}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{optimalizace}
+	\begin{description}
+		\item[-O(0-3)]{zapnutí úrovně optimalizace}
+		\item[-Os]{optimalizace velikosti binárky}
+		\item[-s]{strip, odstranění všech symbolů z binárky\footnote[1]{\alert{znemožní debugování}}}
+		\item[-fomit-frame-pointer]{odstranění frame pointeru\footnotemark[1]}
+	\end{description}
+\end{frame}
+
+\subsection{Clang}
+
+\begin{frame}
+	\frametitle{Clang}
+	\begin{itemize}
+		\item{moderní kompilátor C a C++}
+		\item{prozatím menší sada statických kontrol (warningů)}
+		\item{poskytuje ale velmi čitelné chybové výstupy}
+		\item{pokračující práce na statickém analyzátoru}
+	\end{itemize}
+\end{frame}
+
+\section{Práce na cvičení}
+\subsection{Vstupní test}
+
+\begin{frame}
+	\frametitle{Vstupní test}
+	\begin{itemize}
+		\item{IS -> Student -> Odpovědníky -> C vstupní test}
+	\end{itemize}
+\end{frame}
+
+\subsection{Standardní obsah cvičení}
+
+\begin{frame}
+	\frametitle{Práce na cvičení}
+	\begin{itemize}
+		\item{\href{http://elearning.simontoth.cz/public/pb161\_cviceni}{http://elearning.simontoth.cz/public/pb161\_cviceni}}
+	\end{itemize}
+\end{frame}
+
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
