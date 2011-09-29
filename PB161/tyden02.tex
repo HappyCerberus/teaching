@@ -1,0 +1,158 @@
+\input{../commons/document-base.tex}
+
+\title{Programování v jazyce C++}
+\subtitle{Cvičení - týden II}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+        \begin{frame}
+                \titlepage
+                \vfill
+                \begin{center}
+                \CcGroupByNcSa{0.33}{0.95ex}\\
+                {\tiny\CcNote{\CcLongnameByNcSa}}
+                \vspace*{2ex}
+                \end{center}
+        \end{frame}
+
+\section{Organizační info}
+\subsection{Vstupní test}
+
+\begin{frame}
+		\frametitle{Vstupní test}
+		\begin{itemize}
+				\item{nezapsaní studenti}
+				\item{\texttt{Student -> Odpovědníky}}
+		\end{itemize}
+\end{frame}
+
+\subsection{Úvodní test}
+
+\begin{frame}
+	\frametitle{Úvodní test}
+	\begin{itemize}
+		\item{\texttt{Student -> Odpovědníky}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Odevzdávání příkladů}
+
+\begin{frame}
+	\frametitle{Odevzdávání příkladů}
+	\begin{itemize}
+		\item{plně automatický systém}
+		\item{odevzdávání nanečisto a naostro}
+		\item{15..20 min. zpoždění mezi odevzdáním a opravou}
+		\item{zdrojové kódy letos v SVN repozitáři}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Oprava příkladu}
+	\begin{itemize}
+		\item{probíhá na serveru aisa}
+		\item{gcc verze 4.5.1}
+		\item{očekává přesnou strukturu v SVN}
+		\item{pozor na velká / malá písmena}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Email s opravou}
+	\begin{itemize}
+		\item{jako výsledek opravy dorazí email}
+		\item{výstupy jsou záměrně mlhavé (chyby musíte hledat)}
+		\item{případné dotazy raději na autora zadaní/testu}
+		\item{technické problémy řeším já}
+	\end{itemize}
+\end{frame}
+
+\section{Teorie}
+\subsection{GCC}
+
+\begin{frame}
+	\frametitle{Překlad programu}
+	\begin{enumerate}
+		\item{ujistěte se zda máte správnou verzi gcc (4.5.1 na aise)}
+		\begin{itemize}
+			\item{\texttt{gcc --version}}
+		\end{itemize}
+		\item{zvolte správnou sadu přepínačů}
+		\begin{itemize}
+			\item{\alert{povinné:} \texttt{-ansi -pedantic -Wall}}
+			\item{\alert{doporučené:} \texttt{-Wextra -Weffc++ -Werror}}
+			\item{pro debugování: \texttt{-ggdb3}}
+			\item{pro rychlý běh: \texttt{-O3 -strip -fomit-frame-pointer}}
+		\end{itemize}
+	\end{enumerate}
+\end{frame}
+
+\subsection{Fáze překladu}
+
+\begin{frame}
+	\frametitle{Postup překladu}
+	Bylo na první přednášce.
+	\begin{enumerate}
+		\item{preprocessor}
+		\item{převod do assembleru}
+		\item{kompilace}
+		\item{linkování}
+	\end{enumerate}
+\end{frame}
+
+\subsection{Probráno na přednášce}
+
+\begin{frame}
+	\frametitle{Přednáška}
+	\begin{itemize}
+		\item{nějaké dotazy?}
+	\end{itemize}
+\end{frame}
+
+\section{Práce na cvičení}
+\subsection{Procvičení operátorů}
+
+\begin{frame}
+	\frametitle{Křižovatka}
+	\begin{itemize}
+		\item{implementace křižovatky}
+		\item{třídy:}
+		\begin{itemize}
+			\item{semafor - udržuje svůj stav, umí ho vypsat}
+			\item{křižovatka - synchronizace}
+		\end{itemize}
+		\item{v nekonečném cyklu provádějte čekání \texttt{sleep(1);} z \texttt{unistd.h}}
+		\item{advanced: CTRL+C signal handling}
+		\item{provádějte simulaci křižovatky}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Postup práce}
+	\begin{itemize}
+		\item{u každého příkladu postupjte systematicky}
+		\item{vytvořet si projekt}
+		\item{nastavte si ho}
+		\item{vytvořte si základní kostru main, které nebude nic dělat, ale půjde přeložit a spustit}
+		\item{postupně přidávejte funkčnost}
+	\end{itemize}
+\end{frame}
+
+\subsection{Standardní obsah cvičení}
+
+\begin{frame}
+	\frametitle{Práce na cvičení}
+	\begin{itemize}
+		\item{\href{http://elearning.simontoth.cz/public/pb161\_cviceni}{http://elearning.simontoth.cz/public/pb161\_cviceni}}
+	\end{itemize}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
