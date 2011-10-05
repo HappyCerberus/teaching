@@ -1,0 +1,119 @@
+\input{../commons/document-base.tex}
+
+\title{Úvod do jazyka C}
+\subtitle{Cvičení - týden III}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+		\vfill
+		\begin{center}
+			\CcGroupByNcSa{0.33}{0.95ex}\\
+			{\tiny\CcNote{\CcLongnameByNcSa}}
+			\vspace*{2ex}
+		\end{center}
+	\end{frame}
+
+\section{Organizační info}
+\subsection{Úvodní test}
+
+\begin{frame}
+	\frametitle{Úvodní test}
+	\begin{itemize}
+		\item{\texttt{Student -> Odpovědníky}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Domácí úkol}
+
+\begin{frame}
+	\frametitle{Nenechejte si ujet vlak}
+	\begin{itemize}
+		\item{nenechávejte si úkoly na později}
+		\item{termín není tak daleko jak vypadá}
+	\end{itemize}
+\end{frame}
+
+\section{Teorie}
+
+\subsection{Probráno na přednášce}
+
+\begin{frame}
+	\frametitle{Rozsah a viditelnost proměnných}
+	\begin{itemize}
+		\item{lokální proměnné se alokují při vstupu do bloku}
+		\item{dealokují při opouštění bloku}
+		\item{proměnná je viditelná od deklarace}
+		\item{proměnná je viditelná v podřazených blocích}
+		\item{lokálnější proměnné zakrývají vzdálenější}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Funkce a volání funkcí}
+	\begin{itemize}
+		\item{deklarace}
+		\item{implementace}
+		\item{volání}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Organizace paměti}
+	\begin{itemize}
+		\item{velice důležité}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Adresa a ukazatel}
+	\begin{itemize}
+		\item{ukazatel}
+		\item{reference a dereference}
+		\item{valgrind (memcheck, ptrcheck)}
+	\end{itemize}
+\end{frame}
+
+\section{Práce na cvičení}
+\subsection{Procvičení operátorů}
+
+\begin{frame}
+	\frametitle{spaggeti}
+	\begin{itemize}
+		\item{pročištění a modifikace kódu}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Příklady pro náročné}
+	\begin{block}{koza, vlk a zelí}
+		\begin{itemize}
+			\item{potřeba převézt přes řeku}
+			\item{na loďku se vleze pouze jeden}
+			\item{bez dozoru}
+			\begin{itemize}
+				\item{vlk sežere kozu}
+				\item{koza sežere zelí}
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+	\begin{block}{tři misionáři a tři kanibalové}
+		\begin{itemize}
+			\item{obdobný problém}
+			\item{pokud dojde na břehu k převaze kanibalů sežerou misionáře}
+			\item{nemáme převozníka, ale někdo s ní musí přeplout}
+			\item{loďka má kapacitu dvě osoby}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
