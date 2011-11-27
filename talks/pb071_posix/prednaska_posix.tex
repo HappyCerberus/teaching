@@ -1,0 +1,310 @@
+\input{../commons/document-base.tex}
+
+\title{Návaznost jazyka C na OS}
+\subtitle{Přednášeno v rámci předmětu PB071}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Návaznost jazyka C na OS}
+  \tableofcontents
+\end{frame}
+
+
+\section{Historické návaznosti}
+\subsection{Programovací jazyky a jejich vztah k OS}
+
+\begin{frame}
+	\frametitle{Uvedení do kontextu jiných jazyků}
+
+\begin{overlayarea}{\textwidth}{0.6\textheight}
+\only<1-2>{
+	Multiplatformní framework
+	\begin{itemize}
+		\item{framework zastřešující prácí s OS součástí jazyka}
+		\item{aplikační kód staví na frameworku}
+		\item{obvykle i (komplikovaná) možnost přímé interakce}
+	\end{itemize}
+}
+
+\only<2>{
+	Příklady jazyků
+	\begin{itemize}
+		\item{Java}
+		\item{.Net/Mono (managed C++, C\#, Visual Basic)}
+	\end{itemize}
+}
+
+\only<3-4>{
+	Skriptovací jazyky
+	\begin{itemize}
+		\item{multiplatformní už z principu}
+		\item{vazby na OS můžou být multiplatformní i specifické}
+	\end{itemize}
+}
+
+\only<4>{
+	Příklady jazyků
+	\begin{itemize}
+		\item{Python, Ruby, PHP}
+		\item{Perl (silné unixové kořeny)}
+	\end{itemize}
+}
+
+\only<5-6>{
+	Specializované jazyky
+	\begin{itemize}
+		\item{konkrétní účel, platforma, uživatelská základna}
+		\item{rozlišování multiplaformnosti obvykle nedává smysl}
+	\end{itemize}
+}
+
+\only<6>{
+	Příklady jazyků
+	\begin{itemize}
+		\item{awk}
+		\item{EcmaScript/JavaScript, shell skripty}
+	\end{itemize}
+}
+
+\only<7-8>{
+	Extrémně mutiplatformní jazyky
+	\begin{itemize}
+		\item{podpora nejširšího možného množství platforem}
+		\item{z principu nemůže být práce s OS součástí jazyka}
+		\item{další funkčnost ponechána knihovnám}
+	\end{itemize}
+}
+
+\only<8>{
+	Příklady jazyků
+	\begin{itemize}
+		\item{C}
+		\item{C++}
+	\end{itemize}
+}
+\end{overlayarea}
+
+\end{frame}
+
+\subsection{Unix a Windows}
+\begin{frame}
+	\frametitle{Unix vs. Windows}
+	\begin{itemize}
+		\item{kořeny Windows začínají u jazyka Basic}
+		\item{C podporováno v Microsoft C od roku 1983}
+		\item{rychle přebito jazykem C++}\pause
+		\begin{itemize}
+			\item{první podpora C 6.0 (1989)}
+			\item{plnohodnotná podpora C/C++ 7.0 (1992)}
+			\item{Visual C++ (1993)}
+		\end{itemize}\pause
+		\item{pro porovnání}
+		\begin{itemize}
+			\item{ANSI C 1989 / ISO C 1990}
+			\item{C99 (1999)}
+			\item{ANSI C++ 1998 / revize 2003}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Aktuální stav ve Windows}
+	\begin{itemize}
+		\item{podpora pouze pro ANSI C 89}
+		\item{pouze Windows API}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Unixový svět}
+	\begin{itemize}
+		\item{norma POSIX}
+		\begin{itemize}
+			\item{kterou musí každý certifikovaný UNIX splňovat}
+			\item{jazyk C je součástí POSIXu}
+		\end{itemize}
+		\item{historie}
+		\begin{itemize}
+			\item{POSIX.1 (1988)}
+			\item{POSIX:2008 (aktuální norma)}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Further reading...}
+\begin{frame}
+	\frametitle{Doporučené čtení}
+		\begin{center}
+	\includegraphics[height=60mm]{img/unix-kniha.jpg}
+	\end{center}
+\end{frame}
+
+\section{Práce s OS v jazyce C}
+
+\begin{frame}
+	\frametitle{Práce s OS v jazyce C}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Podpora v jazyce}
+
+\begin{frame}
+	\frametitle{Manipulace se soubory}
+	\begin{itemize}
+		\item{bloková a textová práce se soubory}
+		\item{manipulace se samotnými soubory \texttt{stdio.h}}
+		\begin{itemize}
+			\item{\texttt{FILE* tmpfile(void);}}
+			\item{\texttt{int rename(const char*, const char*);}}
+			\item{\texttt{int remove(const char*);}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Práce s časem}
+	\begin{itemize}
+		\item{unixový čas \texttt{time\_t}}
+		\begin{itemize}
+			\item{počet vteřin od 1.1. 1970}
+			\item{\texttt{time\_t time(time\_t *tloc);}}
+		\end{itemize}
+		\item{struktura pro ukládání času \texttt{struct tm}}
+		\begin{itemize}
+			\item{\texttt{time\_t} můžeme převést na tuto strukturu}
+			\item{\texttt{struct tm *gmtime(const time\_t *clock);}}
+			\item{\texttt{struct tm *localtime(const time\_t *clock);}}
+		\end{itemize}
+		\item{textové reprezentace}
+		\begin{itemize}
+			\item{\texttt{char *ctime(const time\_t *clock);}}
+			\item{\texttt{char *asctime(const struct tm *tm);}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Práce se signály}
+	\begin{itemize}
+		\item{\texttt{int raise(signal sig);}}
+		\item{\texttt{void (*signal(int sig, void (*func)(int)))(int);}\footnote{demo \texttt{signals.c}}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Spouštění externích programů}
+	\begin{itemize}
+		\item{základní podpora}
+		\item{synchronní, blokující}
+		\begin{itemize}
+			\item{\texttt{int system(const char* cmd);}\footnote{demo \texttt{ls.c}}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Práce s locales}
+	\begin{itemize}
+		\item{možnost práce s locales}
+		\item{samotné locales jsou platformně závislé}
+		\item{\texttt{char *setlocale(int cat, const char* locale);}\footnote{locale.c}}
+		\item{\texttt{struct lconv *localeconv(void);}}
+	\end{itemize}
+\end{frame}
+
+\subsection{POSIX}
+
+\begin{frame}
+	\frametitle{POSIX}
+	\begin{itemize}
+		\item{rozšíření standardní knihovny C}
+		\begin{itemize}
+			\item{garance thread safe}
+			\item{reentrant verze funkcí}
+			\item{nové funkce}
+		\end{itemize}
+		\item{systémové operace}
+		\begin{itemize}
+			\item{API varianty všech cmdline příkazů}
+			\item{práce s vlákny}
+			\item{práce s procesy}
+			\item{komunikace (lokální i síť)}
+			\item{a další....}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rozšíření standardní knihovny}
+	\begin{itemize}
+		\item{množství nových funkcí}
+		\item{\texttt{ssize\_t getline(char **line, size\_t *n, FILE *);}\footnote{demo \texttt{posix.c}}}
+		\item{\texttt{char *strndup(const char *s, size\_t n);}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Systémové operace}
+	\begin{itemize}
+		\item{API varianty unixových příkazů}
+		\begin{itemize}
+			\item{\texttt{int nice(int incr);}\footnote{demo \texttt{nice.c}}}
+			\item{\texttt{int kill(pid\_t pid, int sig);}}
+			\item{\texttt{int chmod(const char *path, mode\_t mode);}}
+		\end{itemize}
+		\item{práce s filesystémem}
+		\item{\texttt{dirent.h}\footnote{demo \texttt{dirent.c}}}
+		\item{\texttt{sys/stat.h}\footnote{demo \texttt{stat.c}}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Spouštění programů}
+	\begin{itemize}
+		\item{asynchronní, možnost komunikace}
+		\begin{itemize}
+			\item{\texttt{FILE* popen(const char* cmd, const char* mode);}\footnote{demo \texttt{calc.c}}\footnote{demo \texttt{size.c}}}
+			\item{\texttt{int pclose(FILE*);}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rodina \texttt{fork}/\texttt{exec}}
+	\begin{itemize}
+		\item{rodina funkcí pro vytváření a správu procesů\footnote{demo \texttt{watcher.c} \texttt{pocet.c} \texttt{fork.c}}}
+		\item{\texttt{pid\_t fork(void);}}
+		\item{\texttt{pid\_t wait(int *status);}}
+		\item{\texttt{pid\_t waitpid(pid\_t pid, int *stat, int opt);}}
+		\item{\texttt{int dup(int fildes);}}
+		\item{\texttt{int dup2(int fildes, int fildes2);}}
+		\item{...}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Doporučené čtení}
+	\begin{itemize}
+		\item{manuálové stránky}
+		\begin{itemize}
+			\item{\texttt{man funkce}}
+			\item{\texttt{man soubor.h}}
+		\end{itemize}
+		\item{Wikipedie}
+	\end{itemize}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+\end{document}
