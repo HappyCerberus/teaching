@@ -1,0 +1,514 @@
+\input{../commons/document-base.tex}
+
+\title{Šablony a nový standard C++}
+\subtitle{Přednášeno v rámci předmětu PB161}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+	\vfill
+	\begin{center}
+		\CcGroupByNcSa{0.33}{0.95ex}\\ {\tiny\CcNote{\CcLongnameByNcSa}}
+		\vspace*{2ex}
+	\end{center}
+\end{frame}
+
+\section{Úvod}
+\subsection{Obsah přednášky}
+
+\begin{frame} \frametitle{Obsah přednášky}
+	\begin{itemize}
+		\item{pokročilá práce se šablonami} \pause
+		\item{upravené pro C++11} \pause
+		\item{krátký přehled nových vlastností jazyka}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Šablony}
+	\begin{itemize}
+		\item{zopakování šablon}
+		\begin{itemize}
+			\item{šablony funkcí}
+			\item{šablony typů}
+			\item{částečné specializace}
+		\end{itemize}
+		\item{pokročilá práce se šablonami}
+		\begin{itemize}
+			\item{metaprogramování}
+			\item{šablony v kontextu C++11}
+			\item{šablony a sémantika}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{C++11}
+	\begin{itemize}
+		\item{\textbf{TODO}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Opakování šablon}
+
+\begin{frame} \frametitle{Stupně generičnosti}
+	\begin{itemize}
+		\item{typově nezávislý kód}
+		\begin{itemize}
+			\item{reprezentace algoritmu}
+			\begin{itemize}
+				\item{konstanta \textit{(výpočet $\pi$)}} \pause
+				\item{tabulka hodnot \textit{(goniometrické funkce)}} \pause
+				\item{funkce} \pause
+				\item{šablona funkce} \pause
+			\end{itemize}
+			\item{reprezentace datové struktury}
+			\begin{itemize}
+				\item{proměnná} \pause
+				\item{datový typ} \pause
+				\item{šablona}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Základní syntax}
+	\begin{overlayarea}{\textwidth}{2cm}
+		\only<1>{\texttt{\textbf{template} < \textbf{typename} paramName >\\ void func(paramName\& p) \{\}}}
+		\only<2>{\texttt{\textbf{template} < \textbf{typename} paramName >\\ \textbf{class} Class \{\};}}
+		\only<3>{\texttt{\textbf{template} < \textbf{int} size >\\ \textbf{class} Class \{\};}}
+		\only<4>{\texttt{\textbf{template} < \textbf{int} p1, \textbf{typename} p2, \textbf{class} p3 >\\ \textbf{class} Class \{\};}}
+		\only<5>{\texttt{\textbf{template} < \textbf{int} p1 = 3, \textbf{typename} p2 = double, \\
+		\textbf{class} p3 = std::string >\\ \textbf{class} Class \{\};}}
+	\end{overlayarea}
+	\begin{overlayarea}{\textwidth}{2cm}
+		\only<1>{hlavička šablony\\ následovaná definicí funkce}
+		\only<2>{hlavička šablony\\ následovaná definicí funkce nebo šablonového typu}
+		\only<3>{parametrem může být i ordinální hodnota}
+		\only<4>{a samozřejmě, parametrů může být více}
+		\only<5>{a můžou mít defaultní hodnoty}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame} \frametitle{Šablony funkcí}
+	\begin{itemize}
+		\item{jednodušší varianta šablon}
+		\item{umožňuje psát bezpečné generické funkce}
+		\item{pokud je to možné, kompilátor sám zjistí parametry šablony}
+	\end{itemize}
+	\textbf{Bezpečnost:}
+	\begin{itemize}
+		\item{parametry se vyhodnocují (vs. makra)\footnote{\texttt{macro.cpp}}}
+		\item{zachovává se silná typovost (vs. \texttt{void*})\footnote{\texttt{swap.cpp}}}
+		\item{instance šablony se vytvoří pouze tehdy, je-li to nutné}
+	\end{itemize}
+	\textbf{Extenzibilita:}
+	\begin{itemize}
+		\item{pomocí úplných specializací můžeme specifikovat výjimky\footnote{\texttt{swap.cpp}}}
+	\end{itemize}
+\end{frame}
+
+
+
+
+\if{0}
+
+
+
+
+\subsection{Opakování šablon}
+
+
+\subsection{Základní syntax}
+
+
+	\subsection{Šablony funkcí}
+
+
+	\begin{frame}
+		\frametitle{Pořadí vyhodnocování}
+		Co se stane, když kompilátor narazí na volání funkce?\footnote{\texttt{004\_template\_function\_order.cpp}}
+		\begin{enumerate}
+			\item{Pokud existuje klasická funkce, která splňuje prototyp, použije se.}\\
+		\textbf{else}
+			\item{Pokud existuje vyhovující úplná specializace šablony, použije se.}\\
+		\textbf{else}
+			\item{Kompilátor vytvoří instanci šablony pro daný prototyp.}
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Šablony metod}
+		\begin{itemize}
+			\item{metoda je funkce s jedním skrytým parametrem}
+			\item{aplikují se stejná pravidla jako u funkcí\footnote{\texttt{005\_template\_method.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Šablony tříd}
+
+	\begin{frame}
+		\frametitle{Šablony tříd}
+		\begin{itemize}
+			\item{umožňují konstrukci generických typů\footnote{\texttt{006\_template\_class.cpp}}}
+			\item{typově nezávislý způsob ukládání dat + připojené algoritmy}
+			\item{metody automaticky přejímají šablonu třídy}
+			\item{podpora částečného vyhodnocování}
+			\item{protože kompilátor nemá podle čeho určit parametry, musíme je explicitně uvést}
+			\item{vzhledem k vyhodnocení v době kompilace použitelné pro metaprogramování}
+			\item{STL}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Částečné specializace}
+		\begin{itemize}
+			\item{velice podobný princip jako u úplných specializací\footnote{\texttt{007\_template\_class\_partial.cpp}}}
+			\item{nyní ale fixujeme pouze některé parametry}
+			\item{používá se hlavně k metaprogramování}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Přátelé a šablony}
+		\begin{itemize}
+			\item{jednotlivé instance šablony jsou samostatné typy}
+			\item{nemají přístup k privátním a chráněným položkám jiných instancí\footnote{\texttt{008\_template\_friend.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Praktické využití částečné specializace}
+		\textbf{\texttt{TypeSelector}}\\
+		\begin{itemize}
+			\item{někdy potřebujeme vybrat konkrétní typ na základě vlastností platformy}
+			\item{můžeme použít klasické konstrukce \texttt{\#if \#else \#endif}}
+			\item{šablony jsou ale elegantnější\footnote{\texttt{009\_template\_type\_selector.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Další vlastnosti}
+
+	\begin{frame}
+		\frametitle{Defaultní hodnoty parametrů}
+		\begin{itemize}
+			\item{je možné specifikovat defaultní hodnoty parametrů šablony\footnote{\texttt{010\_template\_default.cpp}}}
+			\item{fungují stejná pravidla jako u parametrů funkcí}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Šablona parametrizovaná šablonou}
+		\begin{itemize}
+			\item{parametrem šablony může být i jiná šablona\footnote{\texttt{011\_template\_templated.cpp}}}
+			\item{ta je pak dostupná v třídě stejně jako jiné parametry}
+			\item{protože jde o šablonu, musíme ji instanciovat}
+		\end{itemize}
+	\end{frame}
+
+	\section{Metaprogramování}
+	\subsection{Úvod}
+
+	\begin{frame}
+		\frametitle{Metaprogramování}
+		\begin{itemize}
+			\item{psaní programů prováděných při kompilaci}
+			\item{převážně založeno na šablonách}
+			\item{možné využít i preprocesor}
+			\item{otevírá nové možnosti návrhu softwaru}
+			\item{velice podobné logickému programování}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Výpočetní metaprogramy}
+
+	\begin{frame}
+		\frametitle{Výpočetní metaprogramy}
+		\begin{itemize}
+			\item{výsledkem výpočetního metaprogramu je jedna konstanta}
+			\item{větší přenositelnost a flexibilita než preprocesor}
+		\end{itemize}\pause
+		\textbf{Klasický problém:}\\
+		Bylo zjištěno, že při výpočtu algoritmu bude potřeba pole integerů odpovídající faktoriálu velikosti typu \texttt{int} na dané platformě.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Výpočet faktoriálu}
+		\begin{itemize}
+			\item{použijeme šablony a jednoduchý rekurzivní algoritmus}
+			\item{ukončovací podmínku vyjádříme pomocí specializace\footnote{\texttt{012\_meta\_factorial.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Výpočet celočíselné odmocniny}
+		\begin{itemize}
+			\item{použijeme algoritmus půlení intervalu}
+			\item{ukončovací podmínku (interval je délky nula) vyjádříme opět pomocí specializace}
+			\item{kvůli efektivitě použijeme \texttt{TypeSelector}\footnote{\texttt{013\_meta\_sqrt.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Klasické metaprogramy}
+
+	\begin{frame}
+		\frametitle{Klasické metaprogramy}
+		\begin{itemize}
+			\item{statické náhrady za klasické konstrukce jazyka}
+			\item{vše je vyhodnoceno v době kompilace}
+			\item{tvorba efektivních programů}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Statické konstrukce jazyka}
+		\textbf{Statický if}
+		\begin{itemize}
+			\item{jednoduchá varianta\footnote{\texttt{014\_meta\_if.cpp}}}
+			\item{pokročilá varianta\footnote{\texttt{015\_meta\_if\_enh.cpp}}}
+		\end{itemize}
+		\textbf{Statický switch}
+		\begin{itemize}
+			\item{rozšíření ifu\footnote{\texttt{016\_meta\_switch.cpp}}}
+		\end{itemize}
+		\textbf{Statický cyklus}
+		\begin{itemize}
+			\item{různé možnosti implementace\footnote{\texttt{017\_meta\_cycle.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Efektivita šablon}
+
+	\begin{frame}
+		\frametitle{Šablony podporující efektivitu}
+		\begin{itemize}
+			\item{šablonové funkce, metody a třídy se vytvoří, pouze pokud se použijí}
+			\item{díky informacím v době kompilace mohou být provedeny lepší optimalizace}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Šablony a kompilace}
+		\begin{itemize}
+			\item{šablony zásadně prodlužují délku kompilace}
+			\item{díky způsobu vyhodnocování je ale vícenásobné použití zadarmo}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Šablony a velikost binárky}
+		\begin{itemize}
+			\item{vygenerované typy zabírají v binárce místo}
+			\item{je to daň za výpočetní efektivitu}
+			\item{\texttt{strip --strip-uneeded soubor} pomůže}
+		\end{itemize}
+	\end{frame}
+
+	\section{Tipy a triky}
+	\subsection{Rozšířené rozhraní}
+
+	\begin{frame}
+		\frametitle{Rozšířené rozhraní}
+		\begin{itemize}
+			\item{využití faktu, že se šablony instanciují pouze, pokud se použijí}
+			\item{platí i pro metody v šablonované třídě}
+			\item{některé metody můžou být typově specifické\footnote{\texttt{018\_tricks\_extended.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Curiously recurring pattern}
+
+	\begin{frame}
+		\frametitle{Curiosly recurring pattern}
+		\begin{itemize}
+			\item{významný dopad na návrh software}
+			\item{předek \textit{zná} svého potomka\footnote{\texttt{019\_tricks\_crp.cpp}}}
+			\item{oddělení typově nezávislé funkčnosti\footnote{\texttt{020\_tricks\_crp\_use.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Statický polymorfizmus}
+
+	\begin{frame}
+		\frametitle{Statický polymorfizmus}
+		\begin{itemize}
+			\item{podobná funkčnost jako virtuální funkce}
+			\item{vyhodnocovaná v době překladu\footnote{\texttt{021\_tricks\_static\_polymorph.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Template injection}
+
+	\begin{frame}
+		\frametitle{Template injection}
+		\begin{itemize}
+			\item{řešení multiplikace kódu u některých operátorů\footnote{\texttt{022\_tricks\_inject.cpp}}\footnote{\texttt{023\_tricks\_inject2.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\section{Návrh založený na zásadách}
+	\subsection{Ideální svět}
+
+	\begin{frame}
+		\frametitle{Ideální svět}
+		\begin{itemize}
+			\item{maximální znovu-použitelnost kódu}
+			\item{možné jednoduše kombinovat kusy kódu}
+			\item{\textit{dočasný zaměstnanec + sekretářka = dočasná sekretářka}}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Vícenásobná dědičnost}
+		\begin{itemize}
+			\item{něco podobného slibuje}
+			\item{kombinace ale není přímočará}
+			\item{nutná spousta lepícího kódu}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Vícenásobná dědičnost}
+
+	\begin{frame}
+		\frametitle{Co je špatně?}
+		\begin{itemize}
+			\item{vícenásobná dědičnost je považována za špatný návrhový vzor}
+			\item{spousta jazyků ji vůbec nepodporuje}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Co je \textbf{skutečně} špatně?}
+		\begin{itemize}
+			\item{vícenásobná dědičnost si vynucuje některé nehezké vlastnosti}
+			\item{může mít nepříjemné vedlejší efekty}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Konflikty jmen a duplikace atributů}
+		\begin{itemize}
+			\item{kolize jmen\footnote{\texttt{024\_contract\_kolize.cpp}}}
+			\item{problém diamantu\footnote{\texttt{025\_contract\_diamant.cpp}}}
+			\item{řešením je obvykle virtuální dědičnost\footnote{\texttt{026\_contract\_virtual.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Virtuální dědičnost je problematická}
+		\begin{itemize}
+			\item{virtuální dědičnost je pomalá}
+			\item{mění pořadí volání konstruktorů\footnote{\texttt{027\_contract\_constructors.cpp}}}
+			\item{\textbf{musíme ji použít dřív, než ji potřebujeme}}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Co s tím?}
+		\begin{itemize}
+			\item{problémy způsobuje \textit{hluboká} dědičnost}
+			\item{kdybychom se jí dokázali vyhnout, vyřešíme skoro vše}
+		\end{itemize}\pause
+		\textbf{Kde je problém?}
+		\begin{itemize}
+			\item{inteligenci dodávají vrchní třídy}
+			\item{ty potřebují, aby datové složky byly pod nimi}
+			\item{při ploché dědičnosti budou vedle sebe}
+			\item{šablony nám pomohou}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Návrh založený na zásadách}
+		\begin{itemize}
+			\item{dědičnost je sama o sobě příliš slabá}
+			\item{zkombinujeme se šablonami}
+			\item{\textit{curiously recurring template pattern}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Zásady}
+
+	\begin{frame}
+		\frametitle{Zásady}
+		\begin{itemize}
+			\item{implementovanou funkčnost rozdělíme na ortogonální zásady}
+			\item{\textit{typ kontroly, způsob alokace, formát načítaných dat...}}
+			\item{pro každou zásadu implementujeme všechny potřebné varianty\footnote{\texttt{028\_contract\_zasada.cpp}}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Třída zásad}
+
+	\begin{frame}
+		\frametitle{Třída zásad}
+		\begin{itemize}
+			\item{kostra pro zásady}
+			\item{obvykle velice jednoduchý spojovací kód}
+			\item{může obsahovat rozšířené metody\footnote{029\_contract\_trida\_zasad.cpp}}
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Knihovna Loki}
+
+	\begin{frame}
+		\frametitle{Knihovna loki}
+		\begin{itemize}
+			\item{knihovna využívající návrh založený na zásadách}
+			\item{\url{http://loki-lib.sourceforge.net/}}
+		\end{itemize}
+	\end{frame}
+
+	\section{Závěr}
+
+	\begin{frame}
+		\frametitle{Děkuji za pozornost}
+		\begin{flushleft}
+			\begin{huge}The truth is out there...\end{huge}
+		\end{flushleft}
+		\begin{flushright}
+			\begin{huge}...seek it.\end{huge}
+		\end{flushright}
+	\end{frame}
+
+
+% constexpr
+% type inference - auto, decltype(X)
+% variadric templates
+% brackets
+% template aliases
+% static assertions
+% type traits
+
+
+% initializer lists
+% uniform initialization
+% retezove vyvolavani konstruktoru
+% final & override
+% explicit conversion operators
+
+
+% r-value references
+
+% range loops
+% lambda functions & algorithms
+
+% nullptr
+
+% strongly typed enumerations
+
+% string literals, & custom literals
+
+% smart pointers
+
+
+
+\fi
+\end{document}
