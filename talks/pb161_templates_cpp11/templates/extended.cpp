@@ -1,10 +1,11 @@
 template < typename T >
 class Trida
 {
-	T data;
-	public:
-		unsigned length() { return data.length(); }
-		unsigned size() { return data.size(); }
+T data;
+
+public:
+	unsigned length() { return data.length(); }
+	unsigned size() { return data.size(); }
 };
 
 #include <vector>

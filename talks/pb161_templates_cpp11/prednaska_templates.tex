@@ -51,7 +51,9 @@
 
 \begin{frame} \frametitle{C++11}
 	\begin{itemize}
-		\item{\textbf{TODO}}
+		\item{\url{http://en.wikipedia.org/wiki/C++11}}
+		\item{vlastnosti jazyka (ne knihovny)}
+		\item{GCC 4.6 \& Clang 3.0}
 	\end{itemize}
 \end{frame}
 
@@ -193,6 +195,13 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame} \frametitle{Návratový typ funkcí}
+	\begin{itemize}
+		\item{návratový typ šablonových funkcí}
+		\item{alternativní syntax\footnote{\texttt{templfc.cpp}}}
+	\end{itemize}
+\end{frame}
+
 \subsection{Metaprogramování}
 
 \begin{frame} \frametitle{Metaprogramování}
@@ -215,173 +224,193 @@
 \end{frame}
 
 \begin{frame} \frametitle{Statický assert}
+	\begin{itemize}
+		\item{assert vyhodnocený v době kompilace\footnote{\texttt{assert.cpp}}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Šablony a sémantika}
+
+\begin{frame} \frametitle{Rozšířené rozhraní}
+	\begin{itemize}
+		\item{využití faktu, že se šablony instanciují pouze, pokud se použijí}
+		\item{platí i pro metody v šablonované třídě}
+		\item{některé metody můžou být typově specifické\footnote{\texttt{extended.cpp}}}
+	\end{itemize}
 \end{frame}
 
 
-	\section{Tipy a triky}
-	\subsection{Rozšířené rozhraní}
+\begin{frame} \frametitle{Curiosly recurring pattern}
+	\begin{itemize}
+		\item{významný dopad na návrh software}
+		\item{předek \textit{zná} svého potomka}
+		\item{oddělení typově nezávislé funkčnosti\footnote{\texttt{crp.cpp}}}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Rozšířené rozhraní}
-		\begin{itemize}
-			\item{využití faktu, že se šablony instanciují pouze, pokud se použijí}
-			\item{platí i pro metody v šablonované třídě}
-			\item{některé metody můžou být typově specifické\footnote{\texttt{018\_tricks\_extended.cpp}}}
-		\end{itemize}
-	\end{frame}
+\begin{frame} \frametitle{Template injection}
+	\begin{itemize}
+		\item{řešení multiplikace kódu u některých operátorů\footnote{\texttt{inject.cpp}}}
+	\end{itemize}
+\end{frame}
 
-	\subsection{Curiously recurring pattern}
+\section{Návrh založený na zásadách}
+\subsection{Ideální svět}
 
-	\begin{frame}
-		\frametitle{Curiosly recurring pattern}
-		\begin{itemize}
-			\item{významný dopad na návrh software}
-			\item{předek \textit{zná} svého potomka\footnote{\texttt{019\_tricks\_crp.cpp}}}
-			\item{oddělení typově nezávislé funkčnosti\footnote{\texttt{020\_tricks\_crp\_use.cpp}}}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Ideální svět}
+	\begin{itemize}
+		\item{maximální znovu-použitelnost kódu}
+		\item{možné jednoduše kombinovat kusy kódu}
+		\item{\textit{dočasný zaměstnanec + sekretářka = dočasná sekretářka}}
+	\end{itemize}
+\end{frame}
 
-	\subsection{Template injection}
+\begin{frame}
+	\frametitle{Vícenásobná dědičnost}
+	\begin{itemize}
+		\item{něco podobného slibuje}
+		\item{kombinace ale není přímočará}
+		\item{nutná spousta lepícího kódu}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Template injection}
-		\begin{itemize}
-			\item{řešení multiplikace kódu u některých operátorů\footnote{\texttt{022\_tricks\_inject.cpp}}\footnote{\texttt{023\_tricks\_inject2.cpp}}}
-		\end{itemize}
-	\end{frame}
+\subsection{Vícenásobná dědičnost}
 
-	\section{Návrh založený na zásadách}
-	\subsection{Ideální svět}
+\begin{frame}
+	\frametitle{Co je špatně?}
+	\begin{itemize}
+		\item{vícenásobná dědičnost je považována za špatný návrhový vzor}
+		\item{spousta jazyků ji vůbec nepodporuje}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Ideální svět}
-		\begin{itemize}
-			\item{maximální znovu-použitelnost kódu}
-			\item{možné jednoduše kombinovat kusy kódu}
-			\item{\textit{dočasný zaměstnanec + sekretářka = dočasná sekretářka}}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Co je \textbf{skutečně} špatně?}
+	\begin{itemize}
+		\item{vícenásobná dědičnost si vynucuje některé nehezké vlastnosti}
+		\item{může mít nepříjemné vedlejší efekty}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Vícenásobná dědičnost}
-		\begin{itemize}
-			\item{něco podobného slibuje}
-			\item{kombinace ale není přímočará}
-			\item{nutná spousta lepícího kódu}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Konflikty jmen a duplikace atributů}
+	\begin{itemize}
+		\item{kolize jmen\footnote{\texttt{024\_contract\_kolize.cpp}}}
+		\item{problém diamantu\footnote{\texttt{025\_contract\_diamant.cpp}}}
+		\item{řešením je obvykle virtuální dědičnost\footnote{\texttt{026\_contract\_virtual.cpp}}}
+	\end{itemize}
+\end{frame}
 
-	\subsection{Vícenásobná dědičnost}
+\begin{frame}
+	\frametitle{Virtuální dědičnost je problematická}
+	\begin{itemize}
+		\item{virtuální dědičnost je pomalá}
+		\item{mění pořadí volání konstruktorů\footnote{\texttt{027\_contract\_constructors.cpp}}}
+		\item{\textbf{musíme ji použít dřív, než ji potřebujeme}}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Co je špatně?}
-		\begin{itemize}
-			\item{vícenásobná dědičnost je považována za špatný návrhový vzor}
-			\item{spousta jazyků ji vůbec nepodporuje}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Co s tím?}
+	\begin{itemize}
+		\item{problémy způsobuje \textit{hluboká} dědičnost}
+		\item{kdybychom se jí dokázali vyhnout, vyřešíme skoro vše}
+	\end{itemize}\pause
+	\textbf{Kde je problém?}
+	\begin{itemize}
+		\item{inteligenci dodávají vrchní třídy}
+		\item{ty potřebují, aby datové složky byly pod nimi}
+		\item{při ploché dědičnosti budou vedle sebe}
+		\item{šablony nám pomohou}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Co je \textbf{skutečně} špatně?}
-		\begin{itemize}
-			\item{vícenásobná dědičnost si vynucuje některé nehezké vlastnosti}
-			\item{může mít nepříjemné vedlejší efekty}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Návrh založený na zásadách}
+	\begin{itemize}
+		\item{dědičnost je sama o sobě příliš slabá}
+		\item{zkombinujeme se šablonami}
+		\item{\textit{curiously recurring template pattern}}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Konflikty jmen a duplikace atributů}
-		\begin{itemize}
-			\item{kolize jmen\footnote{\texttt{024\_contract\_kolize.cpp}}}
-			\item{problém diamantu\footnote{\texttt{025\_contract\_diamant.cpp}}}
-			\item{řešením je obvykle virtuální dědičnost\footnote{\texttt{026\_contract\_virtual.cpp}}}
-		\end{itemize}
-	\end{frame}
+\subsection{Zásady}
 
-	\begin{frame}
-		\frametitle{Virtuální dědičnost je problematická}
-		\begin{itemize}
-			\item{virtuální dědičnost je pomalá}
-			\item{mění pořadí volání konstruktorů\footnote{\texttt{027\_contract\_constructors.cpp}}}
-			\item{\textbf{musíme ji použít dřív, než ji potřebujeme}}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Zásady}
+	\begin{itemize}
+		\item{implementovanou funkčnost rozdělíme na ortogonální zásady}
+		\item{\textit{typ kontroly, způsob alokace, formát načítaných dat...}}
+		\item{pro každou zásadu implementujeme všechny potřebné varianty\footnote{\texttt{028\_contract\_zasada.cpp}}}
+	\end{itemize}
+\end{frame}
 
-	\begin{frame}
-		\frametitle{Co s tím?}
-		\begin{itemize}
-			\item{problémy způsobuje \textit{hluboká} dědičnost}
-			\item{kdybychom se jí dokázali vyhnout, vyřešíme skoro vše}
-		\end{itemize}\pause
-		\textbf{Kde je problém?}
-		\begin{itemize}
-			\item{inteligenci dodávají vrchní třídy}
-			\item{ty potřebují, aby datové složky byly pod nimi}
-			\item{při ploché dědičnosti budou vedle sebe}
-			\item{šablony nám pomohou}
-		\end{itemize}
-	\end{frame}
+\subsection{Třída zásad}
 
-	\begin{frame}
-		\frametitle{Návrh založený na zásadách}
-		\begin{itemize}
-			\item{dědičnost je sama o sobě příliš slabá}
-			\item{zkombinujeme se šablonami}
-			\item{\textit{curiously recurring template pattern}}
-		\end{itemize}
-	\end{frame}
+\begin{frame}
+	\frametitle{Třída zásad}
+	\begin{itemize}
+		\item{kostra pro zásady}
+		\item{obvykle velice jednoduchý spojovací kód}
+		\item{může obsahovat rozšířené metody\footnote{029\_contract\_trida\_zasad.cpp}}
+	\end{itemize}
+\end{frame}
 
-	\subsection{Zásady}
+\subsection{Knihovna Loki}
 
-	\begin{frame}
-		\frametitle{Zásady}
-		\begin{itemize}
-			\item{implementovanou funkčnost rozdělíme na ortogonální zásady}
-			\item{\textit{typ kontroly, způsob alokace, formát načítaných dat...}}
-			\item{pro každou zásadu implementujeme všechny potřebné varianty\footnote{\texttt{028\_contract\_zasada.cpp}}}
-		\end{itemize}
-	\end{frame}
+\begin{frame} \frametitle{Knihovna loki}
+	\begin{itemize}
+		\item{knihovna využívající návrh založený na zásadách}
+		\item{\url{http://loki-lib.sourceforge.net/}}
+	\end{itemize}
+\end{frame}
 
-	\subsection{Třída zásad}
-
-	\begin{frame}
-		\frametitle{Třída zásad}
-		\begin{itemize}
-			\item{kostra pro zásady}
-			\item{obvykle velice jednoduchý spojovací kód}
-			\item{může obsahovat rozšířené metody\footnote{029\_contract\_trida\_zasad.cpp}}
-		\end{itemize}
-	\end{frame}
-
-	\subsection{Knihovna Loki}
-
-	\begin{frame}
-		\frametitle{Knihovna loki}
-		\begin{itemize}
-			\item{knihovna využívající návrh založený na zásadách}
-			\item{\url{http://loki-lib.sourceforge.net/}}
-		\end{itemize}
-	\end{frame}
+\section{C++11}
+\subsection{Vybrané příklady}
 
 % variadric templates
 % brackets
 % template aliases
-% static assertions
 % type traits
 
+\begin{frame} \frametitle{Lambda funkce}
+	\begin{itemize}
+		\item{"náhrada" za funktory}
+		\item{preferovaný styl programování v C++11}
+	\end{itemize}
+\end{frame}
 
-% initializer lists
-% uniform initialization
-% retezove vyvolavani konstruktoru
-% explicit conversion operators
+\begin{frame} \frametitle{Konstrukce tříd}
+	\begin{itemize}
+		\item{uniformní inicializace}
+		\item{inicializační seznamy}
+		\item{řetězové volání konstruktoru}
+		\item{explicitní konverzní operátory}
+		\item{\textit{to be implemented}}
+	\end{itemize}
+\end{frame}
 
-% r-value references
+%\begin{frame} \frametitle{r-value references}
+%	\begin{itemize}
+%		\item{reference na r-value}
+%		\item{pouze ve zkratce\footnote{\texttt{rvalue.cpp}}}
+%	\end{itemize}
+%\end{frame}
 
-% lambda functions & algorithms
+\begin{frame} \frametitle{nullptr}
+	\begin{itemize}
+		\item{\texttt{NULL} je \texttt{0L}}
+		\item{\texttt{NULL} není klíčové slovo}
+		\item{\texttt{nullptr má jednoznačnou sémantiku}\footnote{\texttt{nullptr.cpp}}}
+	\end{itemize}
+\end{frame}
 
-% nullptr
-
-% strongly typed enumerations
+\begin{frame} \frametitle{strongly typed enums}
+	\begin{itemize}
+		\item{možnost určit základní datový typ enumu\footnote{\texttt{enum.cpp}}}
+	\end{itemize}
+\end{frame}
 
 \begin{frame} \frametitle{final \& override}
 	\begin{itemize}
