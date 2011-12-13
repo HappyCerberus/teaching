@@ -30,7 +30,7 @@ public:
 	void Print() { cout << "Uplna specializace" << endl; }
 };
 
-int main()
+int main(
 {
 	Test<char,int> x1;
 	Test<int,char> x2;

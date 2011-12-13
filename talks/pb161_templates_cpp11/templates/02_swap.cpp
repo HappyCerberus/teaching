@@ -30,8 +30,8 @@ int main()
 	cout << "x: " << x << " y: " << y << endl;
 
 	double z(2.5);
-	Swap(y,z);
-	//Swap2(y,z);
+	//Swap(y,z);
+	Swap2(y,z);
 	cout << "y: " << y << " z: " << z << endl;
 
 	return 0;

@@ -6,7 +6,7 @@ void fce(char* x) {}
 
 int main()
 {
-	fce(NULL);
+	//fce(NULL);
 	fce(nullptr);
 
 	int c = nullptr;

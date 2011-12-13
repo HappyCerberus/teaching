@@ -16,3 +16,8 @@ g++ -std=c++0x auto.cpp -o auto
 g++ -std=c++0x range.cpp -o range
 
 clang -std=c++11 final.cpp -o final
+
+g++ -std=c++0x enum.cpp -o enum
+g++ -std=c++0x nullptr.cpp -o nullptr
+g++ -std=c++0x templfc.cpp -o templfc
+g++ -std=c++0x assert.cpp -o assert

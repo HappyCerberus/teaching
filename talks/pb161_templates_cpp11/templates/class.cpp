@@ -2,7 +2,6 @@
 #include<iostream>
 using namespace std;
 
-
 class X
 {
 vector<int> p_data;
