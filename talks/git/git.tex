@@ -167,19 +167,25 @@
 \subsection{Lehký úvod}
 
 \begin{frame}
+	\frametitle{Staging area}
+	\begin{figure}
+		\begin{tikzpicture}[auto,swap]
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (work) at (0,3) {$working$ $directory$};
+			\node[draw=orange,fill=orange!20,rectangle,rounded corners,font=\tiny] (stage) at (0,2) {$stage$ $directory$};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (repo) at (0,1) {$repository$};
+			\draw[->,thick] (work) .. controls +(180:1.5cm) and +(180:1.5cm) .. (stage) node [midway,right,text centered] {\tiny\texttt{git add}};
+			\draw[->,thick] (stage) .. controls +(0:1.5cm) and +(0:1.5cm) .. (repo) node [midway,left,text centered] {\tiny\texttt{git commit}};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Úvodní demonstrace práce s gitem}
 Vytvoření nového repozitáře pomocí \texttt{git init}.
 Vytvoření souboru a ukázka \texttt{git status}.
 Přidání souboru pomocí \texttt{git add}.
 Úprava souboru a ukázka rozdílu mezi stage a working directory.
 \texttt{git diff}.
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Stage area}
-	\begin{itemize}
-		\item{...specialita gitu stage area...}
-	\end{itemize}
 \end{frame}
 
 \section{Vlastnosti GITu}
