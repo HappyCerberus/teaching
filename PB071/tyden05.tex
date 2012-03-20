@@ -47,14 +47,32 @@
 
 \begin{frame}
 	\frametitle{(Strict) aliasing}
+	\begin{itemize}
+		\item{různé datové typy mají různé požadavky na adresu}
+		\item{dva ukazatele různých typů nesmí ukazovat na stejnou adresu}
+		\item{povolené varianty:}
+		\begin{itemize}
+			\item{změna znaménka}
+			\item{změna kvalifikátoru}
+			\item{na union, který obsahuje daný typ jako jednu z položek}
+			\item{mezi položkami jednoho unionu (rozporuplná definice v standardu)}
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Dynamická alokace}
+	\begin{itemize}
+		\item{bacha na ni}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Valgrind}
+	\begin{itemize}
+		\item{vždy si program otestujte i přes valgrind}
+		\item{pokud vám valgrind píše chyby, neodevzdávejte!}
+	\end{itemize}
 \end{frame}
 
 \section{Práce na cvičení}
@@ -74,6 +92,20 @@
 		\item{bludiště je uzavřené}
 		\item{na okraji ale nemusí být stěny}
 		\item{bludiště nemá předem dané rozměry}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Požadavky}
+	\begin{itemize}
+		\item{jediným omezením musí být volná paměť}
+		\item{bludiště musí být uloženo v dvourozměrném poli}
+		\begin{itemize}
+			\item{ideálně po řádcích}
+		\end{itemize}
+		\item{po načtení bludiště pro kontrolu opište}
+		\item{pokud budete mít hotovo, naprogramujte hledání cesty}
+		\item{\url{https://gist.github.com/2134019}}
 	\end{itemize}
 \end{frame}
 
