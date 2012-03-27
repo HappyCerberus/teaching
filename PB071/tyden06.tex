@@ -1,0 +1,90 @@
+\input{../commons/document-base.tex}
+
+\title{Úvod do jazyka C}
+\subtitle{Cvičení - týden \texttt{VI}}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+		\vfill
+		\begin{center}
+			\CcGroupByNcSa{0.33}{0.95ex}\\
+			{\tiny\CcNote{\CcLongnameByNcSa}}
+			\vspace*{2ex}
+		\end{center}
+	\end{frame}
+
+\section{Opakování}
+\subsection{Bludiště}
+
+\begin{frame}
+	\frametitle{Bludiště}
+	\begin{itemize}
+		\item{vzorové řešení bludiště}
+	\end{itemize}
+\end{frame}
+
+\section{Organizační info}
+\subsection{Kritické období}
+
+\begin{frame}
+	\frametitle{Kritické období}
+	\begin{itemize}
+		\item{tohle je velmi kritické období}
+		\item{pozor na aktuálně probíranou látku}
+	\end{itemize}
+\end{frame}
+
+\section{Teorie}
+\subsection{Struktura}
+\begin{frame}
+	\frametitle{Struktura}
+	\begin{itemize}
+		\item{agregovaný datový typ}
+		\item{jednotlivé položky v paměti za sebou}
+		\item{položky jsou zarovnané podle svých potřeb}\pause
+		\item{struktury mají svůj vlastní namespace}
+		\begin{itemize}
+			\item \texttt{struct osoba x;}
+			\item \texttt{osoba x;}
+		\end{itemize}
+		\item{pro zjednodušení můžeme použít \texttt{typedef}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Union}
+\begin{frame}
+	\frametitle{Union}
+	\begin{itemize}
+		\item{agregovaný datový typ}
+		\item{jednotlivé položky v paměti přes sebe}\pause
+		\item{uniony mají svůj vlastní namespace}
+		\begin{itemize}
+			\item \texttt{union cislo x;}
+			\item \texttt{cislo x;}
+		\end{itemize}
+		\item{pro zjednodušení můžeme použít \texttt{typedef}}
+	\end{itemize}
+\end{frame}
+
+\section{Práce na cvičení}
+\subsection{Strom}
+
+\begin{frame}
+	\frametitle{Strom}
+	\begin{itemize}
+		\item{na vstupu máte strom v závorkové notaci}
+		\item{tento strom rozparsujte a načtěte do vhodné datové struktury}
+	\end{itemize}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
