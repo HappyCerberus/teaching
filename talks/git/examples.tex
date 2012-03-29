@@ -6,14 +6,38 @@
 \begin{document}
 
 \section{Základní práce s repozitářem}
-\texttt{git clone url}
-\texttt{uprava}
-\texttt{git status}
-- ukazat jak vypada status, upozornit na stage area
+\begin{enumerate}
+\item stazeni aktualni upstream verze
+\begin{itemize}
+	\item \texttt{git clone git://github.com/HappyCerberus/presentation.git}
+	\begin{itemize}
+		\item vytvoreni lokalni kopie
+		\item kopie je kompletni, nastavi se ale pouze jedna vetev
+		\item \texttt{git branch -a}
+	\end{itemize}
+\end{itemize}
+
+\item{provedeme upravy}
+\item{prohlednuti aktualnich zmen}
+\begin{itemize}
+	\item \texttt{git status}
+	\item \texttt{git diff}
+	\item \texttt{git diff origin/master}
+\end{itemize}
+
+\item{vytvoreni commitu}
+\begin{itemize}
+	\item v gitu se preferují drobné commity
+	\item \texttt{git add file1.txt}
+\end{itemize}
+\end{enumerate}
 
 \texttt{git add soubor}
 \texttt{git status}
 - ukazat jak vypada status ted
+
+\texttt{git diff}
+- ukazka diffu
 
 \texttt{uprava}
 - ukazat co se stane kdyz upravim soubor
