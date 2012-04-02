@@ -1,51 +1,74 @@
-\documentclass[10pt]{article}
+\documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
 \begin{document}
 
-\section{Základní práce s repozitářem}
+\section{TODO}
+
 \begin{enumerate}
-\item stazeni aktualni upstream verze
-\begin{itemize}
-	\item \texttt{git clone git://github.com/HappyCerberus/presentation.git}
-	\begin{itemize}
-		\item vytvoreni lokalni kopie
-		\item kopie je kompletni, nastavi se ale pouze jedna vetev
-		\item \texttt{git branch -a}
-	\end{itemize}
-\end{itemize}
-
-\item{provedeme upravy}
-\item{prohlednuti aktualnich zmen}
-\begin{itemize}
-	\item \texttt{git status}
-	\item \texttt{git diff}
-	\item \texttt{git diff origin/master}
-\end{itemize}
-
-\item{vytvoreni commitu}
-\begin{itemize}
-	\item v gitu se preferují drobné commity
-	\item \texttt{git add file1.txt}
-\end{itemize}
+	\item projit URL repozitaru a predelat na kratke URL pres goo.gl
+	\item overit nainstalovany SW - git, meld
 \end{enumerate}
 
-\texttt{git add soubor}
-\texttt{git status}
-- ukazat jak vypada status ted
+\newpage
 
-\texttt{git diff}
-- ukazka diffu
+\section{Základní práce s repozitářem}
 
-\texttt{uprava}
-- ukazat co se stane kdyz upravim soubor
+\begin{itemize}
+	\item pocatecni nastaveni (globalni vs. lokalni)
+\end{itemize}
 
-\texttt{git commit}
-- upozornit na commit message
+\begin{center}\line(1,0){250}\end{center}
 
-\texttt{git gui}
-- podivat se na commit tree
+\begin{itemize}
+	\item vytvorit testovaci repozitar
+	\item vytvorit soubor \& ukazat status \& pridat \& commit
+	\item uprava \& ukazat status a diff
+	\item ukazat dusledek stage area
+	\item comit log
+	\item revert
+	\item git rm
+	\item git a detekce prejmenovani souboru
+	\item interaktivni git add
+\end{itemize}
+
+\newpage
+
+\section{Větve a jednoduche mergovani}
+
+\begin{itemize}
+	\item vytvoreni vetve a prepnuti (git branch, git checkout, git -b checkout)
+	\item comit na vetvi a ukazka git gui
+	\item ukazka fast-forward merge
+	\item pokud chceme jde vypnout
+	\item automatický merge
+	\item kolize
+	\item multiway merge
+\end{itemize}
+
+\begin{center}\line(1,0){250}\end{center}
+
+\section{Rebase}
+
+\begin{itemize}
+	\item vytvoreni repozitare
+	\item 2 comity na hlavni vetev
+	\item nova vetev + comit
+	\item 1 comit na hlavni vetev
+	\item \texttt{rebase}
+	\item \texttt{rebase {-}{-}onto}
+	\item \texttt{rebase {-}{-}interactive}
+\end{itemize}
+
+\begin{center}\line(1,0){250}\end{center}
+
+\section{Cherry pick}
+
+\begin{itemize}
+	\item ukázka cherry pick
+\end{itemize}
+
 
 \end{document}
