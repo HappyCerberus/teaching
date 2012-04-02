@@ -9,12 +9,14 @@
 {
 	\useinnertheme{rectangles}
 	\useoutertheme{infolines}
-	\usecolortheme{dove}
+	\usecolortheme{rose}
 	\setbeamertemplate{navigation symbols}{}
 }
 
 % Use nicer font
-\usepackage{palatino,graphics,array,url,tikz,verbatim,hyperref}
+%\usepackage{palatino}
+%\usepackage{professionalfonts}
+\usepackage{graphics,array,url,tikz,verbatim,hyperref}
 
 % Setup czech language
 \usepackage[czech]{babel}
@@ -60,11 +62,6 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Obsah}
-	\tableofcontents
-\end{frame}
-
 \subsection{GIT}
 
 \begin{frame}
@@ -77,7 +74,6 @@
 			\item	unikátní identifikace
 			\item	detekce chyb
 		\end{itemize}
-
 		\item	tři typy objektů
 		\begin{description}
 			\item[\textbf{blob}]	blok dat
@@ -191,25 +187,26 @@
 \begin{frame}
 	\frametitle{Staging area}
 	\begin{figure}
-		\begin{tikzpicture}[auto,swap]
-			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (work) at (0,3) {$working$ $directory$};
-			\node[draw=orange,fill=orange!20,rectangle,rounded corners,font=\tiny] (stage) at (0,2) {$stage$ $directory$};
-			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (repo) at (0,1) {$repository$};
-			\draw[->,thick] (work) .. controls +(180:1.5cm) and +(180:1.5cm) .. (stage) node [midway,right,text centered] {\tiny\texttt{git add}};
-			\draw[->,thick] (stage) .. controls +(0:1.5cm) and +(0:1.5cm) .. (repo) node [midway,left,text centered] {\tiny\texttt{git commit}};
+		\begin{tikzpicture}[auto,swap,scale=3]
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\small] (work) at (0,3) {$working$ $directory$};
+			\node[draw=orange,fill=orange!20,rectangle,rounded corners,font=\small] (stage) at (0,2) {$stage$ $directory$};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\small] (repo) at (0,1) {$repository$};
+			\draw[->,thick] (work) .. controls +(180:1.5cm) and +(180:1.5cm) .. (stage) node [midway,right,text centered] {\small\texttt{git add}};
+			\draw[->,thick] (stage) .. controls +(0:1.5cm) and +(0:1.5cm) .. (repo) node [midway,left,text centered] {\small\texttt{git commit}};
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Demo č.1}
-	\begin{itemize}
-		\item{vytvoření repozitáře}
-		\item{přidání souboru a commit}
-		\item{diff, log, status}
-		\item{revert}
-		\item{další operace (rm,mv)}
-	\end{itemize}
+  \frametitle{Demo č.1}
+  \begin{itemize}
+    \item Základní práce s repozitářem
+    \begin{itemize} \item Počáteční nastavení \end{itemize}
+    \begin{itemize} \item První commit a stage area \end{itemize}
+    \begin{itemize} \item Undo, mazání souborů a detekce přejmenování \end{itemize}
+    \begin{itemize} \item Interaktivní \texttt{git add} \end{itemize}
+    \begin{itemize} \item Git ignore \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \section{Větve}
@@ -230,12 +227,27 @@
 \begin{frame}
 	\frametitle{Demo č.2}
 	\begin{itemize}
-		\item vytvoření větvě
-		\item přepínání
-		\item \texttt{git gui}
-		\item mergování
-		\item fast forward
-		\item multiway merge
+		\item Větve
+		\begin{itemize} \item Vytvoření větve \end{itemize}
+  		\begin{itemize} \item Merge \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Cherry pick}
+
+\begin{frame}
+	\frametitle{Cherry pick}
+	\begin{itemize}
+		\item vyzobávání comitů
+		\item vhodné například pro backport bugfixů
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Demo č.3}
+	\begin{itemize}
+		\item Alternativní práce s větvemi
+		\begin{itemize} \item Cherry pick \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -252,16 +264,23 @@
 			\node<3->[draw=green,fill=green!20,circle,font=\tiny] (x4) at (0,3) {$x_4$};
 			\node<3->[draw=green,fill=green!20,circle,font=\tiny] (x5) at (0,4) {$x_5$};
 
-			\node<2-3>[draw=blue,fill=blue!20,circle,font=\tiny] (y1) at (2,3) {$y_1$};
-			\node<2-3>[draw=blue,fill=blue!20,circle,font=\tiny] (y2) at (2,4) {$y_2$};
+			\node<2-4>[draw=blue,fill=blue!20,circle,font=\tiny] (y1) at (2,3) {$y_1$};
+			\node<2-4>[draw=blue,fill=blue!20,circle,font=\tiny] (y2) at (2,4) {$y_2$};
 
-			\node<4->[draw=blue,fill=blue!20,circle,font=\tiny] (z1) at (0,5) {$y_{1}^{*}$};
-			\node<4->[draw=blue,fill=blue!20,circle,font=\tiny] (z2) at (0,6) {$y_{2}^{*}$};
+			\node<4-4>[draw=orange,fill=orange!20,circle,font=\tiny] (m) at (0,5) {$m_1$};
+
+			\node<5->[draw=gray,fill=gray!20,circle,font=\tiny] (q1) at (2,3) {$y_1$};
+			\node<5->[draw=gray,fill=gray!20,circle,font=\tiny] (q2) at (2,4) {$y_2$};
+
+			\node<5->[draw=blue,fill=blue!20,circle,font=\tiny] (z1) at (0,5) {$y_{1}^{*}$};
+			\node<5->[draw=blue,fill=blue!20,circle,font=\tiny] (z2) at (0,6) {$y_{2}^{*}$};
 
 			\draw[-] (x1) -- (x2);		\draw[-] (x2) -- (x3);
 			\draw<3->[-] (x3) -- (x4);	\draw<3->[-] (x4) -- (x5);
-			\draw<2-3>[-] (x3) -- (y1);	\draw<2-3>[-] (y1) -- (y2);
-			\draw<4->[-] (x5) -- (z1);	\draw<4->[-] (z1) -- (z2);
+			\draw<2-4>[-] (x3) -- (y1);	\draw<2-4>[-] (y1) -- (y2);
+			\draw<4-4>[-] (x5) -- (m);	\draw<4-4>[-] (y2) -- (m);
+			\draw<5->[-] (x3) -- (q1);	\draw<5->[-] (q1) -- (q2);
+			\draw<5->[-] (x5) -- (z1);	\draw<5->[-] (z1) -- (z2);
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
@@ -276,11 +295,11 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Demo č.3}
+	\frametitle{Demo č.4}
 	\begin{itemize}
-		\item \texttt{rebase}
-		\item \texttt{rebase {-}{-}onto}
-		\item \texttt{rebase {-}{-}interactive}
+		\item Alternativní práce s větvemi
+		\begin{itemize} \item Rebase \end{itemize}
+		\begin{itemize} \item Interaktivní rebase \end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -334,6 +353,17 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Reset}
+
+\begin{frame}
+	\frametitle{Reset}
+	\begin{itemize}
+		\item reset
+		\item revert
+		\item checkout
+	\end{itemize}
+\end{frame}
+
 \section{Git nástroje}
 
 \subsection{Údržba}
@@ -355,73 +385,54 @@
 		\item git grep
 		\item git bisect
 		\item git blame
+		\item git stash
+		\item git filter-branch
 	\end{itemize}
 \end{frame}
 
+\section{Workflow}
 
-\section{XXXX}
-
-\subsection{Status}
-
-% Git log
-% Git status
-% Git diff
+\subsection{Developer -- Integrator}
 
 \begin{frame}
-	\frametitle{Information}
+	\frametitle{Developer -- Integrator}
 \end{frame}
 
-% Git ignore files
+\subsection{Developer -- Developer}
 
 \begin{frame}
-	\frametitle{Configuration}
+	\frametitle{Developer -- Developer}
 \end{frame}
 
-% workflow
-% big files
-
-\subsection{Git advanced}
+\subsection{Release repo}
 
 \begin{frame}
-	\frametitle{Stashing}
+	\frametitle{Release repo}
 \end{frame}
 
+\section{Limitace gitu}
+\subsection{Velké soubory}
+
 \begin{frame}
-	\frametitle{Commit spec}
+	\frametitle{Velké soubory}
 \end{frame}
 
-\subsection{Undo}
+%%%%%%
+% TODO
+%%%%%%
+
+% git log
+% git status
+% git diff
+
+% create empty branch
+
+% git modules
+% git subversion
 
 \begin{frame}
-	\frametitle{Reset, checkout, revert}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Creating empty branch}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Mass editing history}
-	% git filter-branch
-\end{frame}
-
-\subsection{Subtree and Submodule}
-
-\begin{frame}
-	\frametitle{Subtree and Submodule}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Git patch emailing - jenom okrajove}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Git submodules}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Git and subversion}
+\frametitle{Obsah}
+	\tableofcontents
 \end{frame}
 
 \end{document}

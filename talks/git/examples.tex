@@ -1,9 +1,124 @@
-\documentclass[12pt]{article}
+\documentclass[10pt,twocolumn]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
 \begin{document}
+
+\section{Základní práce s repozitářem}
+\subsection{Počáteční nastavení}
+
+\begin{itemize}
+  \item \texttt{mkdir repo; pushd repo}
+  \item \texttt{git init .}
+  \begin{itemize} \item \textit{vytvoření nového repozitáře v aktuálním adresáři} \end{itemize}
+  \item \texttt{git config {-}{-}global user.name ...}
+  \item \texttt{git config {-}{-}global user.email ...}
+  \item \texttt{git config {-}{-}global color.ui true }
+  \begin{itemize} \item \textit{globální nastavení} \end{itemize}
+\end{itemize}
+
+\subsection{První commit a stage area}
+
+\begin{itemize}
+  \item \texttt{vim soubor.txt}
+  \item \texttt{git status}
+  \begin{itemize} \item \textit{informace o stavu repozitáře} \end{itemize}
+  \item \texttt{git add soubor.txt}
+  \begin{itemize} \item \textit{nastagovaní souboru} \end{itemize}
+  \item \texttt{git status}
+  \item \texttt{git commit}
+  \begin{itemize} \item \textit{vytvoření nového commitu} \end{itemize}
+  \item \texttt{vim soubor.txt}
+  \item \texttt{git status}
+  \item \texttt{git diff}
+  \begin{itemize} \item \textit{rozdílový patch} \end{itemize}
+  \item \texttt{git add soubor.txt; git commit}
+  \item \texttt{git log}
+  \begin{itemize} \item \textit{commit log} \end{itemize}
+\end{itemize}
+
+\subsection{Undo, mazání souborů a detekce přejmenování}
+
+\begin{itemize}
+  \item \texttt{git revert}
+  \begin{itemize} \item \textit{undo commitu} \end{itemize}
+  \item \texttt{git rm soubor.txt}
+  \begin{itemize} \item \textit{smazání souboru} \end{itemize}
+  \item \texttt{vim novy.txt}
+  \begin{itemize} \item \textit{nový soubor s podobným obsahem} \end{itemize}
+  \item \texttt{git add novy.txt}
+  \item \texttt{git status}
+\end{itemize}
+
+\subsection{Interaktivní \texttt{git add}}
+
+\begin{itemize}
+  \item \texttt{touch abc xyz; echo "abc" >novy.txt}
+  \item \texttt{git add {-}{-}interactive}
+\end{itemize}
+
+\subsection{Git ignore}
+
+\begin{itemize}
+  \item \texttt{vim .gitignore}
+\end{itemize}
+
+\begin{center}\line(1,0){250}\end{center}
+
+\section{Větve}
+\subsection{Vytvoření větve}
+
+\begin{itemize}
+  \item \texttt{git branch devel}
+  \begin{itemize} \item \textit{vytvoření větve} \end{itemize}
+  \item \texttt{git checkout devel}
+  \begin{itemize} \item \textit{přepnutí aktuální větve} \end{itemize}
+  \item \texttt{git -b checkout feature}
+  \begin{itemize} \item \textit{přepnutí na novou větev} \end{itemize}
+  \item \texttt{touch a1; git add a1; git commit;}
+  \item \texttt{gitk {-}{-}all}
+\end{itemize}
+
+\subsection{Merge}
+
+\begin{itemize}
+  \item \texttt{git checkout master; git merge feature}
+  \item \texttt{gitk {-}{-}all}
+  \begin{itemize} \item \textit{fast forward merge} \end{itemize}
+  \item \texttt{vim novy.txt}
+  \item \texttt{git add novy.txt; git commit}
+  \item \texttt{git checkout feature}
+  \item \texttt{vim novy.txt}
+  \item \texttt{git add novy.txt; git commit}
+  \item \texttt{git checkout master; git merge feature}
+  \item \texttt{gitk {-}{-}all}
+  \begin{itemize} \item \textit{automatický merge} \end{itemize}
+  \item \texttt{git checkout master}
+  \item \texttt{git merge feature devel}
+  \begin{itemize} \item \textit{multiway merge} \end{itemize}
+  \item \texttt{git mergetool -t meld}
+  \item \texttt{gitk {-}{-}all}
+  \begin{itemize} \item \textit{vyřešení kolize pomocí \texttt{meld}} \end{itemize}
+\end{itemize}
+
+\section{Alternativní práce s větvemi}
+
+\subsection{Cherry pick}
+
+\begin{itemize}
+  \item \texttt{git checkout devel}
+  \item \texttt{vim novy.txt}
+  \item \texttt{git add novy.txt; git commit}
+  \item \texttt{git checkout master}
+  \item \texttt{git cherry-pick}
+  \begin{itemize} \item \textit{vyzobnutí commitu} \end{itemize}
+\end{itemize}
+
+\subsection{Rebase}
+
+\subsection{Interaktivní rebase}
+
 
 \section{TODO}
 
@@ -11,44 +126,6 @@
 	\item projit URL repozitaru a predelat na kratke URL pres goo.gl
 	\item overit nainstalovany SW - git, meld
 \end{enumerate}
-
-\newpage
-
-\section{Základní práce s repozitářem}
-
-\begin{itemize}
-	\item pocatecni nastaveni (globalni vs. lokalni)
-\end{itemize}
-
-\begin{center}\line(1,0){250}\end{center}
-
-\begin{itemize}
-	\item vytvorit testovaci repozitar
-	\item vytvorit soubor \& ukazat status \& pridat \& commit
-	\item uprava \& ukazat status a diff
-	\item ukazat dusledek stage area
-	\item comit log
-	\item revert
-	\item git rm
-	\item git a detekce prejmenovani souboru
-	\item interaktivni git add
-\end{itemize}
-
-\newpage
-
-\section{Větve a jednoduche mergovani}
-
-\begin{itemize}
-	\item vytvoreni vetve a prepnuti (git branch, git checkout, git -b checkout)
-	\item comit na vetvi a ukazka git gui
-	\item ukazka fast-forward merge
-	\item pokud chceme jde vypnout
-	\item automatický merge
-	\item kolize
-	\item multiway merge
-\end{itemize}
-
-\begin{center}\line(1,0){250}\end{center}
 
 \section{Rebase}
 
