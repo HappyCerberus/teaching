@@ -9,7 +9,6 @@
 \subsection{Počáteční nastavení}
 
 \begin{itemize}
-  \item \texttt{mkdir repo; pushd repo}
   \item \texttt{git init .}
   \begin{itemize} \item \textit{vytvoření nového repozitáře v aktuálním adresáři} \end{itemize}
   \item \texttt{git config {-}{-}global user.name ...}
@@ -63,8 +62,6 @@
 \begin{itemize}
   \item \texttt{vim .gitignore}
 \end{itemize}
-
-\begin{center}\line(1,0){250}\end{center}
 
 \section{Větve}
 \subsection{Vytvoření větve}
@@ -135,12 +132,11 @@
 	\begin{itemize} \item \textit{rebase větve na aktuální master} \end{itemize}
 \end{itemize}
 
-% git rebase v kombinaci s cherry pick
-
 \subsection{Přesnější rebase}
 
 \begin{itemize}
 	\item \texttt{git rebase --onto}
+	\begin{itemize} \item \textit{rebase od specifického commitu} \end{itemize}
 \end{itemize}
 
 \subsection{Interaktivní rebase}
@@ -156,23 +152,102 @@
 	\begin{itemize} \item \textit{kompletní editace historie} \end{itemize}
 \end{itemize}
 
-\section{TODO}
-
-\begin{enumerate}
-	\item projit URL repozitaru a predelat na kratke URL pres goo.gl
-	\item overit nainstalovany SW - git, meld
-\end{enumerate}
-
-\section{Rebase}
+\section{Veřejný repozitář}
+\subsection{Bare repozitář}
 
 \begin{itemize}
-	\item vytvoreni repozitare
-	\item 2 comity na hlavni vetev
-	\item nova vetev + comit
-	\item 1 comit na hlavni vetev
-	\item \texttt{rebase}
-	\item \texttt{rebase {-}{-}onto}
-	\item \texttt{rebase {-}{-}interactive}
+	\item \texttt{git clone repo repo2}
+	\item \texttt{gitk --all}
+	\begin{itemize} \item \textit{klon obyčejného repozitáře} \end{itemize}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\item \texttt{git push}
+	\begin{itemize} \item \textit{pokus o push na aktivní větev} \end{itemize}
+	\item \texttt{git clone --bare repo repo3}
+	\begin{itemize} \item \textit{bare klon repozitáře} \end{itemize}
 \end{itemize}
+
+\subsection{Remotes}
+
+\begin{itemize}
+	\item \texttt{git init --bare repo4}
+	\item \texttt{git clone repo4 repo5}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\item \texttt{git push}
+	\begin{itemize} \item \textit{push na aktivní větev bare repozitáře} \end{itemize}
+	\item \texttt{git init --bare repo6}
+	\item \texttt{git remote add public repo6}
+	\item \texttt{git remote -v}
+	\begin{itemize} \item \textit{přidání dalšího vzdáleného repozitáře} \end{itemize}
+\end{itemize}
+
+\subsection{Tracking}
+
+\begin{itemize}
+	\item \texttt{git branch --track devel public/devel}
+	\item \texttt{git fetch}
+	\item \texttt{git pull devel}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\item \texttt{git push public devel}
+	\begin{itemize} \item \textit{vytvoření větve, která sleduje vzdálenou} \end{itemize}
+\end{itemize}
+
+\subsection{Reseting}
+
+\begin{itemize}
+	\item \texttt{git reset}
+	\item \texttt{git reset --hard}
+	\item \texttt{git checkout soubor}
+	\item \texttt{git clean}
+	\begin{itemize} \item \textit{resetování aktuálního stavu} \end{itemize}
+\end{itemize}
+
+\section{Nástroje}
+
+\subsection{Údržba}
+
+\begin{itemize}
+	\item \texttt{git reflog}
+	\begin{itemize} \item \textit{záchrana ztracených dat} \end{itemize}
+	\item \texttt{git gc}
+	\begin{itemize} \item \textit{promázání a rekomprese, zvyšuje výkon} \end{itemize}
+	\item \texttt{git fsck}
+	\begin{itemize} \item \textit{fsck} \end{itemize}
+\end{itemize}
+
+\subsection{Speciální příkazy}
+
+\begin{itemize}
+	\item \texttt{git grep}
+	\item \texttt{git blame}
+	\item \texttt{git stash}
+\end{itemize}
+
+\subsection{Bisect}
+
+\begin{itemize}
+	\item \texttt{git bisect start}
+	\item \texttt{git bisect good commit}
+	\item \texttt{git bisect bad commit}
+	\item \texttt{git bisect reset}
+\end{itemize}
+
+\subsection{Filter branch}
+
+\begin{verbatim}
+git filter-branch --commit-filter '
+  if [ "$GIT_COMMITTER_NAME" = "<Old Name>" ];
+  then
+    GIT_COMMITTER_NAME="<New Name>";
+    GIT_AUTHOR_NAME="<New Name>";
+    GIT_COMMITTER_EMAIL="<New Email>";
+    GIT_AUTHOR_EMAIL="<New Email>";
+    git commit-tree "$@";
+  else
+    git commit-tree "$@";
+  fi' HEAD
+\end{verbatim}
 
 \end{document}

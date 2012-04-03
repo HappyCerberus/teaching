@@ -332,119 +332,110 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Bare vs. non-bare repo}
+	\frametitle{Workflow}
 	\begin{itemize}
-		\item 
+		\item git nevynucuje workflow
+		\item workflow je vhodné zvolit podle způsobu použití
+		\item vhodný i pro velmi agilní metody
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Veřejné repozitáře}
-	\begin{itemize}
-		\item remotes
-		\item bare repo
-		\item push
-		\item hooks
-	\end{itemize}
-\end{frame}
+	\frametitle{Základní workflow}
+	\begin{figure}
+		\begin{tikzpicture}[auto,swap]
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (lok1) at (0,0) {privátní repozitář};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (rem1) at (0,2) {veřejný repozitář};
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (lok2) at (4,2) {privátní repozitář};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (rem2) at (4,0) {veřejný repozitář};
 
-\subsection{Upstream}
+			\draw[->] (lok1) -- (rem1) node [midway,right,text centered] {\tiny\texttt{git push}};
+			\draw[->] (lok2) -- (rem2) node [midway,right,text centered] {\tiny\texttt{git push}};
+
+			\draw[dashed,->] (rem1) -- (lok2) node [midway,text centered] {\tiny\texttt{git pull}};
+			\draw[dashed,->] (rem2) -- (lok1) node [midway,text centered] {\tiny\texttt{git pull}};
+
+			\begin{pgfonlayer}{middle}
+				\node[scale=1.3,draw=black,fill=gray!20,fit=(lok1) (rem1),label=below:$Dev_1$] (dev1) {};
+				\node[scale=1.3,draw=black,fill=gray!20,fit=(lok2) (rem2),label=below:$Dev_2$] (dev2) {};
+			\end{pgfonlayer}
+
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Upstream}
-	\begin{itemize}
-		\item clone
-		\item tracking
-		\item fetch \& pull
-	\end{itemize}
-\end{frame}
+	\frametitle{Integrační workflow}
+	\begin{figure}
+		\begin{tikzpicture}[auto,swap]
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (lok1) at (0,3.5) {privátní repozitář};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (rem1) at (0,5) {veřejný repozitář};
 
-\subsection{Reset}
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (lok2) at (8,3.5) {privátní repozitář};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (rem2) at (8,5) {veřejný repozitář};
+
+			\node[draw=green,fill=green!20,rectangle,rounded corners,font=\tiny] (lok4) at (4,3.5) {integrační repozitář};
+			\node[draw=blue,fill=blue!20,rectangle,rounded corners,font=\tiny] (rem4) at (4,5) {release repozitář};
+
+			\draw[->] (lok1) -- (rem1) node [midway,left,text centered] {\tiny\texttt{git push}};
+			\draw[->] (lok2) -- (rem2) node [midway,right,text centered] {\tiny\texttt{git push}};
+			\draw[->] (lok4) -- (rem4) node [midway,right,text centered] {\tiny\texttt{git push}};
+
+			\draw[->,dashed] (rem1) -- (lok4) node [midway,above,text centered] {\tiny\texttt{git pull}};
+			\draw[->,dashed] (rem2) -- (lok4) node [midway,below,text centered] {\tiny\texttt{git pull}};
+
+			\draw[->] (lok4) -- (lok1) node [midway,text centered] {\tiny\texttt{git pull}};
+			\draw[->] (lok4) -- (lok2) node [midway,text centered] {\tiny\texttt{git pull}};
+
+			\begin{pgfonlayer}{middle}
+				\node[scale=1.1,draw=black,fill=gray!20,fit=(lok1) (rem1),label=below:$Dev_1$] (dev1) {};
+				\node[scale=1.1,draw=black,fill=gray!20,fit=(lok2) (rem2),label=below:$Dev_2$] (dev2) {};
+				\node[scale=1.1,draw=black,fill=gray!20,fit=(lok4) (rem4),label=above:$Integrace$] (dev4) {};
+			\end{pgfonlayer}
+
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Reset}
+	\frametitle{Demo č.5}
 	\begin{itemize}
-		\item reset
-		\item revert
-		\item checkout
+		\item Veřejný repozitář
+		\begin{itemize}
+			\item{Bare repozitář}
+			\item{Remotes}
+			\item{Tracking}
+			\item{Reseting}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\section{Specifikace comittů}
-\subsection{Commit}
-\subsection{Rozsah}
-
+\begin{frame}
+	\frametitle{Hooks}
+	\begin{itemize}
+		\item git podporuje širokou škálu hooks
+		\item skripty, které se spustí před/po každém commitu
+		\begin{itemize} \item nebo jiné akci \end{itemize}
+	\end{itemize}
+\end{frame}
 
 \section{Git nástroje}
 
 \subsection{Údržba}
 
 \begin{frame}
-	\frametitle{Údržba gitu}
+	\frametitle{Demo č.6}
 	\begin{itemize}
-		\item recovery
-		\item git gc
-		\item git fsck
+		\item{Nástroje}
+		\begin{itemize}
+			\item{Údržba}
+			\item{Speciální příkazy}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
-
-\subsection{Nástroje}
-
-\begin{frame}
-	\frametitle{Nástroje}
-	\begin{itemize}
-		\item git grep
-		\item git bisect
-		\item git blame
-		\item git stash
-		\item git filter-branch
-	\end{itemize}
-\end{frame}
-
-\section{Workflow}
-
-\subsection{Developer -- Integrator}
-
-\begin{frame}
-	\frametitle{Developer -- Integrator}
-\end{frame}
-
-\subsection{Developer -- Developer}
-
-\begin{frame}
-	\frametitle{Developer -- Developer}
-\end{frame}
-
-\subsection{Release repo}
-
-\begin{frame}
-	\frametitle{Release repo}
-\end{frame}
-
-\section{Limitace gitu}
-\subsection{Velké soubory}
-
-\begin{frame}
-	\frametitle{Velké soubory}
-\end{frame}
-
-%%%%%%
-% TODO
-%%%%%%
-
-% git log
-% git status
-% git diff
-
-% create empty branch
 
 % git modules
 % git subversion
-
-\begin{frame}
-\frametitle{Obsah}
-	\tableofcontents
-\end{frame}
 
 \end{document}
 
