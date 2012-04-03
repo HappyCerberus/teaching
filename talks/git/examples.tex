@@ -117,8 +117,44 @@
 
 \subsection{Rebase}
 
+\begin{itemize}
+	\item \texttt{git checkout master}
+	\item \texttt{git checkout -b exp\_feature}
+	\begin{itemize} \item \textit{nová expirementální větev z masteru} \end{itemize}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\begin{itemize} \item \textit{dva nové commity na větvi} \end{itemize}
+	\item \texttt{git checkout master}
+	\item \texttt{vim novy.txt}
+	\item \texttt{git add novy.txt; git commit}
+	\begin{itemize} \item \textit{commit na masteru} \end{itemize}
+	\item \texttt{git chekout exp\_feature}
+	\item \texttt{git rebase master}
+	\begin{itemize} \item \textit{rebase větve na aktuální master} \end{itemize}
+\end{itemize}
+
+% git rebase v kombinaci s cherry pick
+
+\subsection{Přesnější rebase}
+
+\begin{itemize}
+	\item \texttt{git rebase --onto}
+\end{itemize}
+
 \subsection{Interaktivní rebase}
 
+\begin{itemize}
+	\item \texttt{git rebase {-}{-}interactive}
+	\begin{itemize} \item \textit{odebírání a squashing commitů} \end{itemize}
+	\item \texttt{git rebase {-}{-}interactive}
+	\item \texttt{git reset HEAD\^{ }}
+	\begin{itemize} \item \textit{příprava k editaci} \end{itemize}
+	\item \texttt{git add ...}
+	\item \texttt{git rebase --continue}
+	\begin{itemize} \item \textit{kompletní editace historie} \end{itemize}
+\end{itemize}
 
 \section{TODO}
 
@@ -138,14 +174,5 @@
 	\item \texttt{rebase {-}{-}onto}
 	\item \texttt{rebase {-}{-}interactive}
 \end{itemize}
-
-\begin{center}\line(1,0){250}\end{center}
-
-\section{Cherry pick}
-
-\begin{itemize}
-	\item ukázka cherry pick
-\end{itemize}
-
 
 \end{document}
