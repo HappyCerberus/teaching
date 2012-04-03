@@ -1,0 +1,79 @@
+\input{../commons/document-base.tex}
+
+\title{Úvod do jazyka C}
+\subtitle{Cvičení - týden \texttt{VII}}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+		\vfill
+		\begin{center}
+			\CcGroupByNcSa{0.33}{0.95ex}\\
+			{\tiny\CcNote{\CcLongnameByNcSa}}
+			\vspace*{2ex}
+		\end{center}
+	\end{frame}
+
+\section{Práce na cvičení}
+\subsection{Strom}
+
+\begin{frame}[fragile]
+	\frametitle{Strom}
+\begin{verbatim}
+struct node
+{
+    double value;
+
+    struct node *parent; /* NULL pro koren */
+    struct node **children;
+    unsigned children_count;
+};
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Strom \texttt{I/O}}
+	\begin{itemize}
+		\item přečtení vstupu v závorkovém formátu
+		\begin{itemize} \item \texttt{struct node* read\_tree(FILE *input);} \end{itemize}
+		\item vypsání stromu v závorkovém formátu
+		\begin{itemize} \item \texttt{void write\_tree(FILE *output, struct node *tree);} \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Strom manipulace}
+	\begin{itemize}
+		\item vytvoření uzlu
+		\begin{itemize} \item \texttt{struct node* create\_node(double value);} \end{itemize}
+		\item zrušení (včetně dealokace)
+		\begin{itemize} \item \texttt{void delete\_node(struct node *node);} \end{itemize}
+		\item připojení pod-uzlu
+		\begin{itemize} \item \texttt{void add\_child(struct node *par, struct node *c);} \end{itemize}
+		\item odpojení uzlu
+		\begin{itemize} \item \texttt{void detach\_child(struct node *child);} \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Strom - výpočty}
+	\begin{itemize}
+		\item maximální hloubka \texttt{-> int}
+		\item průměrná hloubka (listů) \texttt{-> double}
+		\item maximální hodnota \texttt{-> double}
+		\item průměrná hodnota \texttt{-> double}
+		\item průměrná hodnota na maximální hloubce \texttt{-> double}
+		\item průměrná hodnota na listech \texttt{-> double}
+	\end{itemize}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
