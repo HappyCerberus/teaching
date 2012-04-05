@@ -135,7 +135,7 @@
 \subsection{Přesnější rebase}
 
 \begin{itemize}
-	\item \texttt{git rebase --onto}
+	\item \texttt{git rebase {-}{-}onto}
 	\begin{itemize} \item \textit{rebase od specifického commitu} \end{itemize}
 \end{itemize}
 
@@ -148,7 +148,7 @@
 	\item \texttt{git reset HEAD\^{ }}
 	\begin{itemize} \item \textit{příprava k editaci} \end{itemize}
 	\item \texttt{git add ...}
-	\item \texttt{git rebase --continue}
+	\item \texttt{git rebase {-}{-}continue}
 	\begin{itemize} \item \textit{kompletní editace historie} \end{itemize}
 \end{itemize}
 
@@ -157,26 +157,26 @@
 
 \begin{itemize}
 	\item \texttt{git clone repo repo2}
-	\item \texttt{gitk --all}
+	\item \texttt{gitk {-}{-}all}
 	\begin{itemize} \item \textit{klon obyčejného repozitáře} \end{itemize}
 	\item \texttt{vim novy.txt}
 	\item \texttt{git add novy.txt; git commit}
 	\item \texttt{git push}
 	\begin{itemize} \item \textit{pokus o push na aktivní větev} \end{itemize}
-	\item \texttt{git clone --bare repo repo3}
+	\item \texttt{git clone {-}{-}bare repo repo3}
 	\begin{itemize} \item \textit{bare klon repozitáře} \end{itemize}
 \end{itemize}
 
 \subsection{Remotes}
 
 \begin{itemize}
-	\item \texttt{git init --bare repo4}
+	\item \texttt{git init {-}{-}bare repo4}
 	\item \texttt{git clone repo4 repo5}
 	\item \texttt{vim novy.txt}
 	\item \texttt{git add novy.txt; git commit}
 	\item \texttt{git push}
 	\begin{itemize} \item \textit{push na aktivní větev bare repozitáře} \end{itemize}
-	\item \texttt{git init --bare repo6}
+	\item \texttt{git init {-}{-}bare repo6}
 	\item \texttt{git remote add public repo6}
 	\item \texttt{git remote -v}
 	\begin{itemize} \item \textit{přidání dalšího vzdáleného repozitáře} \end{itemize}
@@ -185,7 +185,7 @@
 \subsection{Tracking}
 
 \begin{itemize}
-	\item \texttt{git branch --track devel public/devel}
+	\item \texttt{git branch {-}{-}track devel public/devel}
 	\item \texttt{git fetch}
 	\item \texttt{git pull devel}
 	\item \texttt{vim novy.txt}
@@ -198,7 +198,7 @@
 
 \begin{itemize}
 	\item \texttt{git reset}
-	\item \texttt{git reset --hard}
+	\item \texttt{git reset {-}{-}hard}
 	\item \texttt{git checkout soubor}
 	\item \texttt{git clean}
 	\begin{itemize} \item \textit{resetování aktuálního stavu} \end{itemize}
@@ -249,5 +249,15 @@ git filter-branch --commit-filter '
     git commit-tree "$@";
   fi' HEAD
 \end{verbatim}
+
+%\section{Subversion}
+%
+%\begin{itemize}
+%	\item \texttt{git svn clone --stdlayout --prefix="svn/" repo}
+%	\item \texttt{git svn fetch --all}
+%	\item \texttt{git checkout -b branch}
+%	\item \texttt{git svn rebase}
+%	\item \texttt{git svn dcommit}
+%\end{itemize}
 
 \end{document}
