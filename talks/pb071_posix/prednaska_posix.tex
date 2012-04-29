@@ -1,4 +1,4 @@
-\input{../commons/document-base.tex}
+\input{document-base.tex}
 
 \title{Návaznost jazyka C na OS}
 \subtitle{Přednášeno v rámci předmětu PB071}
@@ -21,80 +21,50 @@
   \tableofcontents
 \end{frame}
 
-
 \section{Historické návaznosti}
 \subsection{Programovací jazyky a jejich vztah k OS}
 
 \begin{frame}
-	\frametitle{Uvedení do kontextu jiných jazyků}
+	\frametitle{Přístup programovacích jazyků k multi-platformnosti}
 
-\begin{overlayarea}{\textwidth}{0.6\textheight}
-\only<1-2>{
-	Multiplatformní framework
-	\begin{itemize}
-		\item{framework zastřešující prácí s OS součástí jazyka}
-		\item{aplikační kód staví na frameworku}
-		\item{obvykle i (komplikovaná) možnost přímé interakce}
-	\end{itemize}
-}
-
-\only<2>{
-	Příklady jazyků
-	\begin{itemize}
-		\item{Java}
-		\item{.Net/Mono (managed C++, C\#, Visual Basic)}
-	\end{itemize}
-}
-
-\only<3-4>{
-	Skriptovací jazyky
-	\begin{itemize}
-		\item{multiplatformní už z principu}
-		\item{vazby na OS můžou být multiplatformní i specifické}
-	\end{itemize}
-}
-
-\only<4>{
-	Příklady jazyků
-	\begin{itemize}
-		\item{Python, Ruby, PHP}
-		\item{Perl (silné unixové kořeny)}
-	\end{itemize}
-}
-
-\only<5-6>{
-	Specializované jazyky
-	\begin{itemize}
-		\item{konkrétní účel, platforma, uživatelská základna}
-		\item{rozlišování multiplaformnosti obvykle nedává smysl}
-	\end{itemize}
-}
-
-\only<6>{
-	Příklady jazyků
-	\begin{itemize}
-		\item{awk}
-		\item{EcmaScript/JavaScript, shell skripty}
-	\end{itemize}
-}
-
-\only<7-8>{
-	Extrémně mutiplatformní jazyky
-	\begin{itemize}
-		\item{podpora nejširšího možného množství platforem}
-		\item{z principu nemůže být práce s OS součástí jazyka}
-		\item{další funkčnost ponechána knihovnám}
-	\end{itemize}
-}
-
-\only<8>{
-	Příklady jazyků
-	\begin{itemize}
-		\item{C}
-		\item{C++}
-	\end{itemize}
-}
-\end{overlayarea}
+\begin{columns}
+	\column{.45\textwidth}
+	\begin{block}<1->{Multiplatformní framework}
+	\scriptsize
+		\begin{itemize}
+			\item{framework zastřešuje práci s OS}
+			\item{aplikační kód staví na frameworku}
+			\item{Jazyky: Java, .Net/Mono}
+		\end{itemize}
+	\end{block}
+	\begin{block}<4->{Multiplatformní jazyk}
+	\scriptsize
+		\begin{itemize}
+			\item{multiplatformnost přímo v návrhu jazyka}
+			\item{velmi malé množství předpokladů}
+			\item{vazby na OS přenechány knihovnám}
+			\item{Jazyky: C, C++}
+		\end{itemize}
+	\end{block}
+	\column{.45\textwidth}
+	\begin{block}<2->{Specializované jazyky}
+	\scriptsize
+		\begin{itemize}
+			\item{specializované využití}
+			\item{multiplatformnost buďto nemá smysl uvažovat}
+			\item{Jazyky: AWK, Javascript}
+		\end{itemize}
+	\end{block}
+	\begin{block}<3->{Skriptovací jazyky}
+	\scriptsize
+		\begin{itemize}
+			\item{program se vykonává skrz interpret/virtuální stroj}
+			\item{multiplatformní v závislosti na interpretu}
+			\item{vazby na OS jak specifické tak obecné}
+			\item{Jazyky: Perl, Python, PHP}
+		\end{itemize}
+	\end{block}
+\end{columns}
 
 \end{frame}
 
