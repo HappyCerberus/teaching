@@ -1,0 +1,127 @@
+\documentclass[10pt]{article}
+
+\begin{document}
+
+\section{Introduction}
+
+Welcome, thank you all for comming here today.
+My name is Šimon Tóth and today I would like to introduce you into the area of grid scheduling.
+
+\section{Quiz}
+
+Now, before we really start, let me ask you a few questions.
+
+Just please raise hand, if you know what a grid is. Thank you.
+
+Please raise your hand, if you ever heard about MetaCentrum or Cerit. Thank you.
+
+Please raise your hand, if you ever used a grid. Thank you.
+
+\section{Categories}
+
+Now at least those of you that know what a grid is might have some mental image
+of how the grid looks like.  This image here, actually doesn't show a grid.
+This is an image of one of the older generation of BlueGene, which is a
+supercomputer.
+
+So allow me please to shortly introduce you into the different categories of
+supercomputing elements you might encounter.  And let's start with
+supercomputers.
+
+Supercomputers are a computing model you would probably look for, when you needed the
+maximum possible performace, or when you had a use case for which you already
+had some estimate of required procesing prower. Or of course, when you somehow
+got access to huge amount of money and didn't know where to spend it.
+
+Supercomputers are very expensive, so you won't be buying a supercomputer for
+just two years. Therefore most supercomputers are actually not usable for
+generic computing and you will most likely be developing specific software for
+your supercomputer, just to use it to the fullest.
+
+Of course initially all computers could be categorized as supercomputers. They
+were huge, extremely expensive, were maintained for very long time.
+
+With the advent of personal computers and workstations, we small compact server.
+At this point, you could actually build a reasonably powerful computing element
+by connecting multiple workstations or server using a fast network. And then by
+exploiting paralelization you could run your software reasonably fast, without
+expending huge amount of money.
+
+One very specific atribute of clusters is that each cluster is a homogenous
+environment. When you buy a cluster, you are buing a set of machines, that are
+identical in their configuration. This brings with itself one big issue.
+Although clusters are actually much cheaper then supercomputers, you still have
+to expend a lot of money.
+
+The issue here is that wile clusters are much less expensive than
+supercomputers, supercomputers are so expensive, that you will most likely
+never have enough money to buy one. Therefore when buying a cluster you still
+have to make compromises.
+
+For example if your user group would benefit from GPU computations, you will
+probably want to buy a cluster that will have GPU cards. But since GPU cards
+are quite expensive, such cluster will most likely be much smaller than a
+cluster without GPU cards.
+
+Now if you have only users with one single orientation, that is just fine. But
+if you have heterogenous users, that have different requirements you will soon
+run into issues.
+
+And this is the problem that Grids were designed to solve. Grids are an
+infrastructural element.  The basic description of a Grid is a set of clusters,
+connected using a common infrastructural software to facilitate sharing of
+resources.
+
+Now you might sense, that this will be an area with lot of policies and
+political issues, and it is. Grid is definitelly about organizations and
+infrastructures.
+
+Grid comes with two important notions. The resources providers. Resources
+providers are the owners of computing and storage elements that are connected
+into the grid.  And virtual organizations. Virtual organizations represent
+groups of users, usually with a common interest and negotiate access to
+resources with resources providers.
+
+The last model I basically have to talk about is cloud.
+Cloud is a slightly strange model, because it isn't a computing model, it is a
+business model. Right now, it makes sense to bill access to computing resources
+per cpu hour, because the major costs are in the hardware itself and in the
+electricity costs.
+
+\section{Metaphor}
+
+So, that should give you an overview of different models you can encounter and
+more specifically what is the model we are working with.
+
+Now to actually present you with the issue, allow me a short metaphor.
+
+\subsection{Marketplace}
+
+Imagine a marketplace. On a normal marketplace, customers enter and leave
+without any control. The problem with this model is that when a customer enters
+a marketplace, he has no guarantee that he will get what he wants.
+
+We have very demanding demanding customers. They don't want to waste their time
+entering the market place when their requirements can't be currently met. Some
+of our customers don't even want to wait, they just want to hand in a list of
+requirements and have their shopping sent to them.
+
+- explanation of paralel
+ - users loging on machines, no control
+
+- control model
+  - central entity - one entrance point
+  - real-time overview of resources
+  - static allocations
+
+- how hard is this problem
+  - job scheduling
+  - oraculum
+  - non-claivoirance
+  - on-line problem
+
+\subsection{Big marketplace}
+
+\subsection{Another marketplace}
+
+\end{document}

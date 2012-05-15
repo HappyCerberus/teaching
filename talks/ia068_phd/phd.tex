@@ -41,6 +41,11 @@
 \usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/ibm-blue-gene-back.jpg}}
 \begin{frame}
 
+% Now please allow me a short quiz before we really start
+% Who of you knows what is a grid?
+% Who of you heard either about MetaCentrum or Cerit?
+% Who of you actually used a grid?
+
 	\begin{columns}
 	\column{0.45\textwidth}
 	\begin{block}{Hardware models}
@@ -58,37 +63,52 @@
 	\column{0.45\textwidth}
 	\begin{block}{Features}
 	\begin{overlayarea}{\textwidth}{4cm}
+	% when you are buing a supercomputer, you are either shooting for maximum possible performance, or you have a specific use case and some rough estimate of required computing power
+	% supercomputers, aren't usually suitable for generic computing, usually, they are optimized for a spefic use case scenario
+	% they also tend to be expensive
+	% and they usually run specialized software, upto the point of providing special implementations of language (and other) libraries
 	\only<1>{
 	\small
 	\begin{itemize}
-		\item maximum performance
+		\item maximum/specific performance
 		\item not suitable for generic computing
 		\item expensive
-		\item specialized software
 	\end{itemize}
 	}
+	% the basic idea of a cluster is that instead of buing an expensive supercomputer you buy a "cluster" of homogenous machines and
+	% interconnect them into a computer network
+	% when buying a cluster you are usually targeting the sweetspot of maximum performance to price ratio
 	\only<2>{
 	\small
 	\begin{itemize}
-		\item maximum usability
+		\item maximum performance to price ratio
 		\item homogenous environemnt
-		\item weighted performance/cost
 	\end{itemize}
 	}
+	% now with clusters, you can get nice performance for reasonable price
+	% but still, specifically when your requirements are specific, you usually can't satisfy all users
+	% when you for example buy a cluster with GPU cards, you can't really expect this cluster to have great raw CPU performance
+	% this is where grids come into play
+	% in grids we are starting to distinguish multiple parties
+	% first there are the resource providers, these provide computing and storage facilities for the users
+	% then there are virtual organizations, these are mostly groups of users, but with their own "organizational structure"
+	% virtual organizations then negotiate access to resources for their users
 	\only<3>{
 	\small
 	\begin{itemize}
 		\item maximum utility
 		\item heterogenous environment
-		\item weighted usage/cost
 	\end{itemize}
 	}
+	% the latest member to the family of computing architectures is cloud computing
+	% now this is a strage member, since cloud isn't really an architecture, it's a sales model
+	% right now, the majority of the computing cost is in the hardware and in electricity
+	% therefore it makes sense to sell access per CPU hour
 	\only<4>{
 	\small
 	\begin{itemize}
-		\item maximum gain
+		\item maximum financial gain
 		\item dynamic environment
-		\item weighted cpu time/cost
 	\end{itemize}
 	}
 	\vspace{5cm}
@@ -102,6 +122,18 @@
 
 \end{frame}
 }
+
+% To explain to you what we are doing, please allow me to introduce a marketplace metaphor.
+% Let's imagine a marketplace. And not just any marketplace, a marketplace with very demanding clientele.
+% First of all, customers don't want to waste their time and only want to enter the marketplace when their requirements can be fulfilled.
+% Secondly, some of the customers don't want to even waste time shoping, and just want to hand-in a list of requirements with an address to ship them to.
+
+% Now for such system to work you need one entry point to the marketplace with some entity maintaining information about the current state of the marketplace.
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/marketplace.jpg}}
+\frame{}
+}
+
 
 
 \begin{frame}
@@ -153,5 +185,21 @@
 % One of the possible approaches that could allow us to escape the current rigid model is deadline scheduling.
 % In deadline scheduling, the scheduler is trying to create a schedule that will violate the least amount of deadlines.
 % We are depending largely on the information provided by the oracle, since we don't have any other source of precise job runtime.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
