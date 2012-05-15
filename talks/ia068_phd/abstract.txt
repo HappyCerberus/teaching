@@ -1,0 +1,19 @@
+Scheduling the GRID(s)
+
+National and international distributed computing (and storage) infrastructures
+consist of individual sites that keep their autonomy and authoritative
+decisions over the use of provided resources. Coordinated use of such resources
+needs a proper scheduling policy and mechanisms to enforce it. With the
+continuous growth of the infrastructure, a centralised scheduling is
+practically impossible to enforce. More distributed mechanisms (and policies)
+are needed to fulfil both the growth and autonomy requirements. As sites are
+not necessarily hierarchically organised, some kind of peer to peer
+collaborative model will be the first target. Such distributed model has a
+potential for higher stability and scalability while being capable to guarantee
+the (partial) autonomy required by different sites.
+
+In this introductory talk you will be introduced to the challenges of job
+scheduling in GRID environment. Particular attention will be given to the
+challenges of scheduling in a distributed environment, where each party requires
+significant autonomy.
+
