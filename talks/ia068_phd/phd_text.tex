@@ -5,11 +5,27 @@
 \section{Introduction}
 
 Welcome, thank you all for comming here today.
-My name is Šimon Tóth and today I would like to introduce you into the area of grid scheduling.
+My name is Šimon Tóth.
+
+I work for CESNET, where I work on the Czech National Grid Infrastructure 
+and my Ph.D. studies are conducted in cooperation with CESNET and also CERIT.
+
+I'm in my first year of PhD studies, and therefore right now, I have mostly
+questions and issues and chalenges and not many solutions to present.  And
+since you are quite a diverse audience, specializing in various fields, I
+prepared an introductory talk for you.
+
+I apologize to those who are familiar with job and GRID scheduling, because
+this talk won't probably give you much new information.
 
 \section{Quiz}
 
-Now, before we really start, let me ask you a few questions.
+Just to get a quick overview of how many people here are familiar with this
+subject, please allow me a short quiz.
+
+Please raise your hand, if you are familiar with scheduling. Thank you.
+
+Please raise your hand, if you are familiar with job scheduling. Thank you.
 
 Just please raise hand, if you know what a grid is. Thank you.
 
@@ -106,13 +122,74 @@ entering the market place when their requirements can't be currently met. Some
 of our customers don't even want to wait, they just want to hand in a list of
 requirements and have their shopping sent to them.
 
-- explanation of paralel
- - users loging on machines, no control
+\subsubsection{Mapping}
 
-- control model
-  - central entity - one entrance point
-  - real-time overview of resources
-  - static allocations
+How does this metaphor map to GRID scheduling? Well, the original marketplace
+with no control at all is like buying computers and giving users shell access
+to these machines.
+
+Now of course, users are greedy and if you use this approach, very soon you
+will run into issues of users using the entire capacity of the machines for
+themselves.
+
+The other problem you will run into are guarantees of resources. If a computer
+program runs out of memory, it will either crash, or end in some other
+forcefull manner. Since many users need to run long (even month long)
+computations, you really need to provide some sort of guarantee that the
+requested amount of memory will be available on the machine through the entire
+life time of the computation.
+
+And in the case of GRID, only few users want interactive access to the
+machines. Most just want to enter their requirements, provide a script, that
+will run their job and wait for an email notifying them about the result.
+
+\subsubsection{Central authority}
+
+So what does the central authority have to provide?
+
+First of all, we really need to force all users to enter only through this
+central authority. So while we may allow users shell access to machines, we
+definitelly won't allow any computational jobs being run manually on the machines.
+
+The central authority has to provide the guarantees of resources, therefore we
+need to do static allocations. This also allows the central authority to have
+less current information about the GRID, because the central authority can
+easilly track the current state of each machine locally.
+
+Of course, machine failures still have to be monitored.
+
+\subsubsection{Job scheduling}
+
+So, how hard this problem actually is? Well let's start with the simple variant.
+You have some jobs, each with some different length.  And to keep it simple, we
+want all of these jobs to finish as soon as possible.  
+
+Example of offline job scheduling.
+
+Unfortunatelly for us, the GRID scheduling problem isn't as simple as that.
+
+One of the problematic parts of GRID scheduling is the combinatoric explosion.
+In theoretical problems and solutions, the problem is extremely oversimplified.
+
+First, jobs can be very picky about the machine they want to run on.
+So for example you could be only able to run job1, job2, and job3 on machine1 or machine2
+
+In our example the jobs had only one dimension, the length.  In actuallity GRID
+jobs are 3 or more dimensional. Each job has length, number of CPUs and memory
+requirement. Some jobs have GPU requirements, some have license requirements,
+some have disk space requirements.
+
+While the number of dimensions will increase the complexity of the algorith, it
+will only result in higher computational complexity. This is a big problem, but
+actually the smallest.
+
+One of the big issues is non-claivoirance. We don't really know how long the
+jobs will be.  We have some upper limit. But a job with a 24 hour limit can
+easily end after 15 minutes.
+
+Problem s online characteristikou problemu.
+
+Problem s merenim uspesnosti rozvrhu.
 
 - how hard is this problem
   - job scheduling
@@ -132,10 +209,21 @@ From the resource provider perspective, this is a bit more complex.
 
 \subsection{Big marketplace}
 
-\subsection{Another marketplace}
-
 Lets come back to the marketplace metaphor. So you are now aware of the issue
 connected with job sheduling on a single grid aka a marketplace.  Now what
 happens, when the marketplace gets to big to maintain. The only option is to split it.
+
+Since the bottle-neck is the central entrance point, we basically want to build
+new walls and new entrances into the market place.
+
+The good thing is that we are still in control of the entire market place, and
+it is us, who set the policies.
+
+\subsection{Another marketplace}
+
+But this model fails, when we introduce another marketplace into the play.
+
+With one market place being split into multiple parts we still got the controll about the policies we enforce.
+With another market place with full autonomy, we can only rely on the agreements established between these two market places.
 
 \end{document}
