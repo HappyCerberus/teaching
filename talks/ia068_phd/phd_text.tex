@@ -1,115 +1,123 @@
-\documentclass[10pt]{article}
+\documentclass[12pt,a4paper]{article}
+
+% Setup UTF-8 encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Setup czech language
+\usepackage[english]{babel}
+
+\usepackage{a4wide}
 
 \begin{document}
 
 \section{Introduction}
 
-Welcome, thank you all for comming here today.
-My name is Šimon Tóth.
+Welcome, thank you all for comming here today. My name is Šimon Tóth and I
+would like to introduce you into the area of job scheduling in GRIDs.  My main
+job is work for CESNET, where I work in MetaCentrum, the Czech National Grid
+Infrastructure maintainer.  My Ph.D. studies are therefore concentrating on
+this area and are conducted in cooperation with both MetaCentrum and CERIT
+(which is the new GRID and cloud provider founded by the University).
 
-I work for CESNET, where I work on the Czech National Grid Infrastructure 
-and my Ph.D. studies are conducted in cooperation with CESNET and also CERIT.
+In the next 20 minutes I will try to present to you the chalenges and problems
+associted with job scheduling.  If at any time you feel like there is something
+that should be clarified, or you have any question, don't hesitate and ask.
 
-I'm in my first year of PhD studies, and therefore right now, I have mostly
-questions and issues and chalenges and not many solutions to present.  And
-since you are quite a diverse audience, specializing in various fields, I
-prepared an introductory talk for you.
+\subsection{Quiz}
 
-I apologize to those who are familiar with job and GRID scheduling, because
-this talk won't probably give you much new information.
-
-\section{Quiz}
+\texttt{\textbf{---SWITCH SLIDE---}}
 
 Just to get a quick overview of how many people here are familiar with this
-subject, please allow me a short quiz.
+subject, allow me a short quiz.
 
-Please raise your hand, if you are familiar with scheduling. Thank you.
+Please raise your hand:
 
-Please raise your hand, if you are familiar with job scheduling. Thank you.
+\begin{itemize}
+	\item if you are familiar with job scheduling
+	\item if you know what a grid is
+	\item if you ever heard about MetaCentrum or CERIT
+	\item if you ever used a grid
+\end{itemize}
 
-Just please raise hand, if you know what a grid is. Thank you.
+\section{Computational Resources}
 
-Please raise your hand, if you ever heard about MetaCentrum or Cerit. Thank you.
+Those of you who know what a grid is may have some visual image of the grid in
+your mind.  If the image is something like the one you see on the slide, than
+you are actually wrong, because this isn't a grid.  This is one of the older
+version of BlueGene, which is a super-computer.
 
-Please raise your hand, if you ever used a grid. Thank you.
+While the difference between a super computer and a grid might not seem
+significant, allow me please to go more deeper into this issue because the
+difference between different computational resources are actually very
+important.
 
-\section{Categories}
+\subsection{super-computer}
 
-Now at least those of you that know what a grid is might have some mental image
-of how the grid looks like.  This image here, actually doesn't show a grid.
-This is an image of one of the older generation of BlueGene, which is a
-supercomputer.
+\texttt{\textbf{---SWITCH SLIDE---}}
 
-So allow me please to shortly introduce you into the different categories of
-supercomputing elements you might encounter.  And let's start with
-supercomputers.
+Lets start with supercomputers.
 
-Supercomputers are a computing model you would probably look for, when you needed the
-maximum possible performace, or when you had a use case for which you already
-had some estimate of required procesing prower. Or of course, when you somehow
-got access to huge amount of money and didn't know where to spend it.
+While historically computers started as super-computers (huge machines, built
+for maximum performance with no, or minimal regard towards price).  We have
+quickly shifted towards cheaper and more practical alternatives.
 
-Supercomputers are very expensive, so you won't be buying a supercomputer for
-just two years. Therefore most supercomputers are actually not usable for
-generic computing and you will most likely be developing specific software for
-your supercomputer, just to use it to the fullest.
+At this time, you would want a super computer if either you want maximum
+possible performance, or when you have a use case for which you have some
+estimate of required processing power.
 
-Of course initially all computers could be categorized as supercomputers. They
-were huge, extremely expensive, were maintained for very long time.
+Supercomputers are still the most expensive computational model, and therefore
+you will be usually buying a supercomputer for a long period of time. Most
+supercomputers are not designed for generic computation, but are usually optimized for some specific use case.
 
-With the advent of personal computers and workstations, we small compact server.
-At this point, you could actually build a reasonably powerful computing element
-by connecting multiple workstations or server using a fast network. And then by
-exploiting paralelization you could run your software reasonably fast, without
-expending huge amount of money.
+\subsection{clusters}
 
-One very specific atribute of clusters is that each cluster is a homogenous
-environment. When you buy a cluster, you are buing a set of machines, that are
-identical in their configuration. This brings with itself one big issue.
-Although clusters are actually much cheaper then supercomputers, you still have
-to expend a lot of money.
+\texttt{\textbf{---SWITCH SLIDE---}}
 
-The issue here is that wile clusters are much less expensive than
-supercomputers, supercomputers are so expensive, that you will most likely
-never have enough money to buy one. Therefore when buying a cluster you still
-have to make compromises.
+Another interesting model is computer cluster.
+Computer clusters are of course great for use cases where the workload can be distributed onto multiple machines.
+Another charm of clusters is of course that you can get reasonable performance for much less money than a super computer would cost.
 
-For example if your user group would benefit from GPU computations, you will
-probably want to buy a cluster that will have GPU cards. But since GPU cards
-are quite expensive, such cluster will most likely be much smaller than a
-cluster without GPU cards.
+One very specific feature of a computer cluster is that it is homogenous.
+You have identical machines, connected together with a high speed network.
+Now because of this, it is quite cheeap to upgrade a cluster, you can simply buy more identical machines.
+But it has one big weakness. If you are buying identical machines, you are concentrating on one use case.
+If you buy generic machines, you are building generic performance, if you buy machines with GPU cards, you are building a cluster suitable for GPU computing.
+The problem arises when you have diverse users. Users that want CPU performance, won't get much of that from a GPU cluster.
 
-Now if you have only users with one single orientation, that is just fine. But
-if you have heterogenous users, that have different requirements you will soon
-run into issues.
+This is where grids come into play.
 
-And this is the problem that Grids were designed to solve. Grids are an
-infrastructural element.  The basic description of a Grid is a set of clusters,
-connected using a common infrastructural software to facilitate sharing of
-resources.
+\subsection{grid}
 
-Now you might sense, that this will be an area with lot of policies and
-political issues, and it is. Grid is definitelly about organizations and
-infrastructures.
+\texttt{\textbf{---SWITCH SLIDE---}}
 
-Grid comes with two important notions. The resources providers. Resources
-providers are the owners of computing and storage elements that are connected
-into the grid.  And virtual organizations. Virtual organizations represent
-groups of users, usually with a common interest and negotiate access to
-resources with resources providers.
+Grids are a congregation of resource providers, that are operating clusters and are willing to agree upon some level of infrastructural commonality to allow users easy access to these clusters.
+This can range from "simple" things like shared user database to complex solutions include middle-ware and even OS.
 
-The last model I basically have to talk about is cloud.
-Cloud is a slightly strange model, because it isn't a computing model, it is a
-business model. Right now, it makes sense to bill access to computing resources
-per cpu hour, because the major costs are in the hardware itself and in the
-electricity costs.
+Czech National Grid is a very tightly integrated grid, where the shared infrastructure goes even to the OS level, but we are still capable to support sites that want to maintain some level of independence.
+
+A grid environment solves the issues of specific user requirements by facilitating the users to access clusters of other organizations, which may have different attributes.
+
+\subsection{cloud}
+
+Of course I can't skip clouds. Clouds present a slightly strange model, because Cloud is actually a business model. It a first really working business model for selling computing time.
+I won't be covering cloud in this talk, but since the Czech National Grid has a modern virtualized infrastructure, I will mention a few cloud-like aspects.
+
+\subsection{grids again}
+
+So these are the computing hardware model. Of course I just presented a very rough simplification, but hopefully, you can now imagige where the GRID fits in.
+
+Let me come back to grid for a short moment and introduce a more notions that I will be using during this presentation.
+In a grid environment, users are represented by virtual ogranizations.
+
+Virtual organizations negotiate access to resources with resource providers. This can include a fully fledged contract between the resource provider and the virtual organization.
+
+The entity that mostly enters as technology and know-how provider I will be refering to as grid maintainer/operator.
 
 \section{Metaphor}
 
-So, that should give you an overview of different models you can encounter and
-more specifically what is the model we are working with.
-
-Now to actually present you with the issue, allow me a short metaphor.
+Now that we know the playfield, lets move on to job scheduling.
+And I would like to introduce job scheduling in the GRID context using a metaphor.
 
 \subsection{Marketplace}
 
@@ -117,12 +125,13 @@ Imagine a marketplace. On a normal marketplace, customers enter and leave
 without any control. The problem with this model is that when a customer enters
 a marketplace, he has no guarantee that he will get what he wants.
 
-We have very demanding demanding customers. They don't want to waste their time
-entering the market place when their requirements can't be currently met. Some
-of our customers don't even want to wait, they just want to hand in a list of
-requirements and have their shopping sent to them.
+The market place may not be able to provide the goods he is searching for at all, or they may be sold out.
 
-\subsubsection{Mapping}
+Now imagine that you want to improve this situation.
+You would want to provide a service that would tell the customers whether the goods that their require are currently still present in the marketplace.
+For that you would need some sort of central authority and only one guarded entrace to the marketplace.
+
+\subsection{Mapping}
 
 How does this metaphor map to GRID scheduling? Well, the original marketplace
 with no control at all is like buying computers and giving users shell access
@@ -139,11 +148,7 @@ computations, you really need to provide some sort of guarantee that the
 requested amount of memory will be available on the machine through the entire
 life time of the computation.
 
-And in the case of GRID, only few users want interactive access to the
-machines. Most just want to enter their requirements, provide a script, that
-will run their job and wait for an email notifying them about the result.
-
-\subsubsection{Central authority}
+\section{Central authority}
 
 So what does the central authority have to provide?
 
