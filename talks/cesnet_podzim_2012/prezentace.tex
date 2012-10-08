@@ -1,0 +1,162 @@
+\documentclass[pdftex,aspectratio=169]{beamer}
+
+% Setup beamer look theme
+\mode<presentation>
+{
+	\useinnertheme{rectangles}
+	\useoutertheme{infolines}
+	\usecolortheme{beaver}
+	\setbeamertemplate{navigation symbols}{}
+}
+
+% Use nicer font
+\usepackage{palatino}
+\usepackage{palatino,graphics,array}
+
+% Setup UTF-8 encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Setup czech language
+\usepackage[czech]{babel}
+
+% Include usefull packages
+\usepackage{graphics}
+
+% Include hyperlinks support
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=black,unicode=true}
+
+% Add support for simple URLs
+\usepackage{url}
+
+\title{Torque}
+\subtitle{co se tento rok stalo a stane}
+\author[]{Mgr.~Šimon~Tóth}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Přehled}
+\subsection{Tento rok}
+
+\begin{frame}
+	\frametitle{Co se stalo tento rok}
+	\begin{itemize}
+		\item{převážně ladění}
+		\begin{itemize}
+			\item{odstraňování všemožných chyb}
+			\item{ladění sémantiky}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Do konce roku}
+
+\begin{frame}
+	\frametitle{Kompletní přepis plánovače}
+	\begin{itemize}
+		\item{eliminace těžce spravovatelného kódu}
+		\item{příprava pro nové vlastnosti}
+	\end{itemize}
+\end{frame}
+
+\section{Tento rok v detailech}
+\subsection{Kontrola limitů zdrojů}
+
+\begin{frame}
+	\frametitle{Kontrola limitů zdrojů}
+\end{frame}
+
+\subsection{Archivace jobů}
+
+\begin{frame}
+	\frametitle{Archivace jobů}
+	\begin{itemize}
+		\item{joby se mažou ze serveru 24 hodin po skončení}
+		\item{tohle je málo pro řešení problémů uživatelů}
+		\begin{itemize}
+			\item{kam mi zmizel job?}
+			\item{proč mi selhal job?}
+			\item{...}
+		\end{itemize}
+		\item{všechny joby se nyní archivují}
+		\item{prozatím pouze dostupné na serveru přes ssh}
+	\end{itemize}
+\end{frame}
+
+\section{Za rohem}
+\subsection{Distribuovaný Torque}
+
+\begin{frame}
+	\frametitle{Distribuovaný Torque}
+	\begin{itemize}
+		\item{(snad) do konce měsíce}
+		\item{pokud plánovač najde místo pro job na jiném serveru, spustí ho tam}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Aktální chování}
+	\begin{itemize}
+		\item{pokud se povede job spustit}
+		\item{originální job se přepne do speciálního stavu}
+		\item{poznačí se cílový server}
+		\item{podpora v qstatu}
+		\begin{itemize}
+			\item{pouze pro \texttt{qstat (-f) jobid}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nedořešené problémy}
+	\begin{itemize}
+		\item{fairshare}
+		\begin{itemize}
+			\item{můžeme aproximovat}
+		\end{itemize}
+		\item{strádání}
+		\begin{itemize}
+			\item{můžeme simulovat}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Scratch}
+
+\begin{frame}
+	\frametitle{Scratch}
+	\begin{itemize}
+		\item{heterogenní scratche}
+		\begin{itemize}
+			\item{obyčejný lokální}
+			\item{SSD lokální}
+			\item{síťový}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logika plánovače}
+	\begin{itemize}
+		\item{pro uživatele se vybere scratch který má dost místa}
+		\item{pokud si uživatel explicitně řekne o konkrétní scratch, job se spustí jenom když bude místo}
+	\end{itemize}
+\end{frame}
+
+\subsection{Plánování podle výkonu strojů}
+
+\begin{frame}
+	\frametitle{Plánování podle výkonu počítačů}
+	\begin{itemize}
+		\item{nová vlastnost na strojích}
+		\item{uživatel může zadat minimální výkon stroje}
+	\end{itemize}
+\end{frame}
+
+\end{document}
