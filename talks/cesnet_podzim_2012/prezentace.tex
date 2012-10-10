@@ -10,7 +10,6 @@
 }
 
 % Use nicer font
-\usepackage{palatino}
 \usepackage{palatino,graphics,array}
 
 % Setup UTF-8 encoding
@@ -46,11 +45,13 @@
 
 \begin{frame}
 	\frametitle{Co se stalo tento rok}
+	\pause
 	\begin{itemize}
 		\item{převážně ladění}
 		\begin{itemize}
 			\item{odstraňování všemožných chyb}
 			\item{ladění sémantiky}
+			\item{spíše drobné vlastnosti}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -58,33 +59,45 @@
 \subsection{Do konce roku}
 
 \begin{frame}
-	\frametitle{Kompletní přepis plánovače}
+	\frametitle{Na čem se aktivně pracuje}
+	\pause
 	\begin{itemize}
+		\item{kompletní refactoring kódu plánovače}
 		\item{eliminace těžce spravovatelného kódu}
-		\item{příprava pro nové vlastnosti}
+		\item{půda pro nové vlastnosti}
 	\end{itemize}
 \end{frame}
 
 \section{Tento rok v detailech}
+\subsection{Přehled}
+
+\begin{frame}
+	\frametitle{Přehled}
+	\begin{itemize}
+		\item{nové vlastnosti, převážně zaměřené na user support}
+		\item{větší vlastnosti čekají rozpracované ve frontě}
+	\end{itemize}
+\end{frame}
+
 \subsection{Kontrola limitů zdrojů}
-
-% limity zdroju se kontroluji na uzlech
-% promenne pro limity zdroju v environmentu
-
-% fairshare se nyni pocita jako walltime * pocet cpu
-
-% environment injection into job
-
-% moznost limitovat fronty podle poctu obsazenych CPU
-
-% job archive
-
-% vylepsene planovani licenci
-
-% LB
 
 \begin{frame}
 	\frametitle{Kontrola limitů zdrojů}
+	\begin{itemize}
+		\item{kontrola CPU a paměti}
+		\item{silně konfigurovatelné}
+		\item{podpora pro exkluzivní a (osamocené) joby}
+		\item{v provozu už delší dobu}
+		\item{ve frontě ještě změna kontroly na časové úseky}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Exportace limitů do environmentu}
+	\begin{itemize}
+		\item{řešení problému heterogenních strojů}
+		\item{uživatelé můžou použít k nastavení limitů SW}
+	\end{itemize}
 \end{frame}
 
 \subsection{Archivace jobů}
@@ -93,7 +106,7 @@
 	\frametitle{Archivace jobů}
 	\begin{itemize}
 		\item{joby se mažou ze serveru 24 hodin po skončení}
-		\item{tohle je málo pro řešení problémů uživatelů}
+		\item{to je málo pro řešení problémů uživatelů}
 		\begin{itemize}
 			\item{kam mi zmizel job?}
 			\item{proč mi selhal job?}
@@ -101,6 +114,59 @@
 		\end{itemize}
 		\item{všechny joby se nyní archivují}
 		\item{prozatím pouze dostupné na serveru přes ssh}
+	\end{itemize}
+\end{frame}
+
+\subsection{Limitace front podle CPU}
+
+\begin{frame}
+	\frametitle{Limitace front podle CPU}
+	\begin{itemize}
+		\item{limitace fronty podle počtu využitých CPU}
+		\item{limitace uživatele ve frontě pole počtu využitých CPU}
+		\item{limitace skupiny ve frontě podle počtu využitých CPU}
+	\end{itemize}
+\end{frame}
+
+\subsection{Drobná vylepšení}
+
+\begin{frame}
+	\frametitle{Licence}
+	\begin{itemize}
+		\item{výrazně se eliminoval problém s plánováním licencí}
+		\item{pořád máme problém u Matlabu}
+		\begin{itemize}
+			\item{velký tlak externích uživatelů}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Změna fairshare}
+	\begin{itemize}
+		\item{fairshare se počítá podle statické alokace}
+		\begin{itemize}
+			\item{\texttt{walltime * ncpus}}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Environment injection}
+	\begin{itemize}
+		\item{provozní vlastnost}
+		\item{možnost vecpat jobu dynamicky generovaný environment}
+		\item{konfigurovatelné per-stroj}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{LB}
+	\begin{itemize}
+		\item{ze strany Torque jde o vyřešený problém}
+		\begin{itemize}
+			\item{modulo pár záhadných pádů}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -116,9 +182,9 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Aktální chování}
+	\frametitle{Aktuální chování}
 	\begin{itemize}
-		\item{pokud se povede job spustit}
+		\item{atomické spuštění}
 		\item{originální job se přepne do speciálního stavu}
 		\item{poznačí se cílový server}
 		\item{podpora v qstatu}
@@ -171,6 +237,70 @@
 	\begin{itemize}
 		\item{nová vlastnost na strojích}
 		\item{uživatel může zadat minimální výkon stroje}
+	\end{itemize}
+\end{frame}
+
+\subsection{On-demand clustery}
+
+\begin{frame}
+	\frametitle{On-demand clustery}
+	\begin{itemize}
+		\item{automatické rebootování strojů na image který požadují joby}
+		\item{automaticky se vytvoří nový cluster job}
+		\item{postaví se speciální typ clusteru}
+		\item{na clusteru se pak může pustit jak job pro který se postavil, tak jiný}
+	\end{itemize}
+\end{frame}
+
+\section{Dlouhodobější výhled}
+\subsection{Informace uživatelům}
+
+\begin{frame}
+	\frametitle{Informace uživatelům}
+	\begin{itemize}
+		\item{na co job čeká}
+		\item{kdy se asi spustí}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Detekce nespustitelných jobů}
+	\begin{itemize}
+		\item{plánovací algoritmus reportuje tři hodnoty}
+		\begin{itemize}
+			\item{může se spustit}
+			\item{teď se nemůže spustit}
+			\item{nikdy se nemůže spustit}
+		\end{itemize}
+		\item{otevřený problém kategorizace}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Noví klienti}
+	\begin{itemize}
+		\item{přepis klientů}
+		\begin{itemize}
+			\item{\texttt{qstat}}
+			\item{\texttt{qmgr}}
+			\item{\texttt{pbsnodes}}
+		\end{itemize}
+		\item{informace z logiky plánovače}
+		\item{detailnější dotazy}
+		\begin{itemize}
+			\item{volné stroje}
+			\item{stroje dostupné z fronty X}
+			\item{stroje odpovídající nodespec}
+		\end{itemize}
+		\item{strojově parsovatelný výstup}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{To určitě není vše}
+	\begin{itemize}
+		\item{pokračování v bugfixování}
+		\item{další, operativně řešené, drobné vlastnosti}
 	\end{itemize}
 \end{frame}
 
