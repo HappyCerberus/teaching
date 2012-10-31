@@ -1,0 +1,379 @@
+\documentclass[pdftex,fleqn,aspectratio=169]{beamer}
+
+% Setup beamer look theme
+\mode<presentation>
+{
+	\useinnertheme{rectangles}
+	\useoutertheme{infolines}
+	\usecolortheme{crane}
+	\setbeamertemplate{navigation symbols}{}
+}
+
+% Use nicer font
+\usepackage{palatino}
+\usepackage{palatino,graphics,array}
+
+% Setup UTF-8 encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Setup czech language
+\usepackage[czech]{babel}
+
+% Include usefull packages
+\usepackage{graphics}
+
+% Include hyperlinks support
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=black,unicode=true}
+
+% Add support for simple URLs
+\usepackage{url}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,snakes,fit}
+
+\usepackage{amsmath}
+%\setlength{\mathindent}{0pt}
+
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+
+\title[Cooperative Scheduling]{Cooperative peer-to-peer scheduling architecture in grid environment}
+\subtitle{prezentace pro Sitolu}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\begin{document}
+        \begin{frame}
+                \titlepage
+                \vfill
+        \end{frame}
+
+\section{Model systému}
+\subsection{Model}
+
+\begin{frame}
+	\frametitle{Jednoduchý model}
+	\begin{overlayarea}{\textwidth}{0.5\textheight}
+	\begin{align*}
+	& Job_i  = \{ length \} \\
+\only<2->{ & PJob_i = \{ Job_i, begin, end, Resc_j \} \\ }
+\only<3->{
+	& Plan   = \{ PJob_1, ..., PJob_n \} \\
+	\\
+	& \forall \{ PJob_i, PJob_j \}, i \neq j ; \\
+	& PJob_i[Resc] = PJob_j[Resc] \Rightarrow ( begin_{Job_i} > end_{Job_j} ) \vee ( end_{Job_i} < begin_{Job_j} )
+	}
+	\end{align*}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Základní pohled na plánování úloh}
+	\begin{tikzpicture}[auto,
+		singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+		doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 4.1cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+	]
+		\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_1$ };\&
+			\node[draw, singlejob] {$Job_1$};\& \node[draw, singlejob] {$Job_2$};\&
+			\node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_4$};\\
+
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_2$ };\&
+			\node[singlejob] (j51) {}; \& \node[singlejob] (j52) {}; \&
+			\node[singlejob] (j61) {}; \& \node[singlejob] (j62) {}; \\
+		};
+		\node[draw,doublejob] (outer) [fit=(j51) (j52),label=center:$Job_5$] {};
+		\node[draw,doublejob] (outer) [fit=(j61) (j62),label=center:$Job_6$] {};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Měření kvality rozvrhu}
+	Makespan:
+	\begin{itemize}
+		\item minimalizace $max(end_{Job_i})$
+		\item optimalizujeme využití zdrojů
+	\end{itemize}\pause
+	
+	Wait time:
+	\begin{itemize}
+		\item minimalizace $\sum_1^n begin_{Job_i}$
+		\item optimalizujeme dobu čekání na spuštění úlohy
+	\end{itemize}\pause
+
+	Response time:
+	\begin{itemize}
+		\item minimalizace $\sum_1^n end_{Job_i}$
+		\item optimalizujeme dobu čekání na výsledek
+	\end{itemize}\pause
+	
+	Slowdown:
+	\begin{itemize}
+		\item minimalizace $\sum_1^n \frac{end_{Job_i}}{end_{Job_i}-begin_{Job_i}}$
+		\item optimalizujeme váženou dobu čekání na výsledek
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Měření kvality rozvrhu \only<3->{vs. uživatelé}}
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	Wait time:
+	\begin{itemize}
+		\item minimalizace $\sum_1^n begin_{Job_i}$
+		\item optimalizujeme dobu čekání na spuštění úlohy
+	\end{itemize}\pause
+	
+	\begin{tikzpicture}[auto,
+		singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+		doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 4.1cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+	]
+		\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_1$ };\&
+			\node[draw, singlejob] {$Job_1$};\& \node[draw, singlejob] {$Job_2$};\&
+			\node[singlejob] (j51) {}; \& \node[singlejob] (j52) {}; \\
+
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_2$ };\&
+			\node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_4$}; \&
+			\node[singlejob] (j61) {}; \& \node[singlejob] (j62) {}; \\
+		};
+		\node[draw,doublejob,onslide={<5->{fill=red!20}}] (outer) [fit=(j51) (j52),label=center:$Job_5$] {};
+		\node[draw,doublejob,onslide={<5->{fill=red!20}}] (outer) [fit=(j61) (j62),label=center:$Job_6$] {};
+	\end{tikzpicture}
+
+	\begin{align*}
+\only<3>{	& Job_i = \{ length \}
+}
+\only<4->{	& Job_i = \{ length, User_j \}
+}
+	\end{align*}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Globální metriky}
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	Makespan:
+	\begin{itemize}
+		\item minimalizace $max(end_{Job_i})$
+		\item optimalizujeme využití zdrojů
+	\end{itemize}\pause
+	\begin{align*}
+	& Job_i = \{ length, User_j\only<3->{, arrival} \}
+	\end{align*}
+
+\only<4->{
+	Využití zdrojů:
+	\begin{itemize}
+	  \item minimalizace prostojů
+	\end{itemize}
+	
+	 \begin{align*}
+	 & \sum begin_{Job_i} - end_{Job_j}; Job_i[Resc] = Job_j[Resc] \wedge \\
+	 & ( \nexists Job_k, Job_k[Resc] = Job_i[Resc] \wedge ( begin_{Job_k} > end_{Job_j} \wedge end_{Job_k} < begin_{Job_i} ))
+	 \end{align*}
+}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Realistické zdroje}
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	\begin{align*}
+	& Job_i = \{ length, User_j, arrival\only<2->{, RescReq } \} \\
+	\only<2->{ & RescReq = \{ a \times CPU, b \times MEM, c \times GPU \}, a, b, c \in N_0 \\ } 
+	\only<2->{ & Resc = \{ a \times CPU, b \times MEM, c \times GPU \}, a, b, c \in N_0  \\ }
+	\end{align*}
+\only<3->{
+	Požadavky na plán:
+	\begin{align*}
+	& \forall time, Resc[CPU] >= \sum Job_i[RescReq_{CPU}], begin_{Job_i} \leq time \wedge end_{Job_i} \geq time \\
+	& \forall time, Resc[MEM] >= \sum Job_i[RescReq_{MEM}], begin_{Job_i} \leq time \wedge end_{Job_i} \geq time \\
+	& \forall time, Resc[GPU] >= \sum Job_i[RescReq_{GPU}], begin_{Job_i} \leq time \wedge end_{Job_i} \geq time \\
+	\end{align*}
+}
+	\end{overlayarea}
+\end{frame}
+
+\subsection{Globální metriky}
+
+\begin{frame}
+	\frametitle{Prostoje s realistickými zdroji}
+	\pause
+	\begin{itemize}
+	  \item pokud existuje časový prostoj ve kterém by mohla proběhnout úloha, je to špatně
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limity}
+	\begin{itemize}
+	 \item množství zdrojů které můžu obsadit dlouhými úlohami je omezené
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Majitelé zdrojů}
+	\begin{itemize}
+		\item majitelé zdrojů mají k těmto zdrojům okamžitý přístup\pause
+		\item pro on-line plánování naprosto fatální problém\pause
+		\item triky pro řešení
+		\begin{itemize}
+			\item zabíjení úloh
+			\item full-machine preempce
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Specifikace strojů}
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	\begin{align*}
+	& Job_i = \{ length, User_j, arrival\only<1>{, RescReq } \only<2->{, ( MachineSpec_1, ..., MachineSpec_n ) } \} \\
+	\only<2->{
+	& MachineSpec = \{ prop_1, ..., prop_n, RescReq \} \\
+	}
+	\only<2>{
+	& Resc = \{ a \times CPU, b \times MEM, c \times GPU, prop_1, ..., prop_n \}, a, b, c \in N_0
+	}
+	\only<3>{
+	& Resc = \{ a \times CPU, b \times MEM, c \times GPU, HWProp, ( VirtProp_1, ..., VirtProp_n ) \} \\
+	& HWProp = \{ hwprop_1, ..., hwprop_n \} \\
+	& VirtProp = \{ virtprop_1, ..., virtprop_n \}
+	}
+	\end{align*}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prostoje s realistickými zdroji}
+	\begin{itemize}
+		\item pokud existuje časový prostoj ve kterém by mohla proběhnout úloha, je to špatně \pause
+		\item HARD CONSTRAINT
+		\begin{itemize}
+			\item{mimo případy kdy k tomu má plánovací algoritmus důvod}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Kvalita rozvrhu}
+
+\begin{frame}
+	\frametitle{Obecná kvalita rozvrhu}
+	\begin{align*}
+	& \frac{MeasuredQuality}{OptimalQuality}
+	\end{align*}
+	
+	\begin{itemize}
+		\item{vygenerovaný optimální rozvrh}
+		\item{vyhodnocení kvality rozvrhu}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Požadavky uživatelů na rozvrh}
+	\begin{itemize}
+		\item každý uživatel chce aby se jeho úlohy spočítali co nejdřív
+		\item dokážeme z toho poskládat metriku?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Férovost}
+	\begin{align*}
+	& \forall i; \lim_{time \to \infty} Usage(User_i) = TotalUsage \times DesignatedFraction(User_i)
+	\end{align*}
+\end{frame}
+
+\subsection{Další parametry a shrnutí}
+
+\begin{frame}
+	\frametitle{Další parametry systému}
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	\begin{align*}
+	& Job_i = \{ length, User_j, arrival, ( MachineSpec_1, ..., MachineSpec_n ) \} \\
+	& MachineSpec = \{ prop_1, ..., prop_n, RescReq \} \\
+	& Resc = \{ a \times CPU, b \times MEM, c \times GPU, HWProp, \only<2->{ LocProp,} ( VirtProp_1, ..., VirtProp_n ) \} \\
+	& HWProp = \{ hwprop_1, ..., hwprop_n \} \\
+	\only<2->{ & LocProp = \{ ( Loc_{Resc_i}, prop_1 ), ...., ( Loc_{Resc_i}, prop_n ) \} \\ }
+	& VirtProp = \{ virtprop_1, ..., virtprop_n \}
+	\end{align*}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Non-claivoirance}
+	\pause
+	\begin{overlayarea}{\textwidth}{0.9\textheight}
+	\begin{itemize}
+		\item úlohy nemají zadanou délku
+	\end{itemize} \pause
+	
+	\begin{tikzpicture}[auto,
+		singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+		doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 4.1cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+	]
+		\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_1$ };\&
+			\node[draw, singlejob] {$Job_1$}; \& 
+			\only<3>{ \node[draw, singlejob] {$Job_2$}; }
+			\only<4->{\node[draw, singlejob, minimum width = 1cm, left] {$Job_2$};}
+			\&
+			\node[singlejob] (j51) {}; \& \node[singlejob] (j52) {}; \\
+
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_2$ };\&
+			\node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_4$}; \&
+			\node[singlejob] (j61) {}; \& \node[singlejob] (j62) {}; \\
+		};
+		\node[draw,doublejob] (outer) [fit=(j51) (j52) (j61) (j62),label=center:$Job_5$] {};
+	\end{tikzpicture}
+	\end{overlayarea}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Shrnutí}
+	\begin{itemize}
+		\item vysoký počet dimenzí problému
+		\begin{itemize}
+			\item virtualizace
+			\item lokační vlastnosti
+			\item obyčejné vlastnosti
+			\item CPU, MEM, GPU
+			\item čas
+			\item predikce budoucích úloh
+			\item nejistá doba běhu úloh
+			\item licence, místo na disku, výkon stroje, etc...
+		\end{itemize}
+		\item problémy s měřením kvality
+		\begin{itemize}
+			\item metriky které lze použít jsou extrémně obecné
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Ph.D.}
+\subsection{Predikce}
+
+\begin{frame}
+	\frametitle{Predikce}
+	\begin{itemize}
+	 \item predikce nových úloh
+	 \item predikce délky úloh
+	\end{itemize}
+\end{frame}
+
+\subsection{Distribuovaný model}
+
+\begin{frame}
+	\frametitle{Distribuovaný model}
+	\begin{itemize}
+	 \item 
+	\end{itemize}
+
+\end{frame}
+
+\end{document}
