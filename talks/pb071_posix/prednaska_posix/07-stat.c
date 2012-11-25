@@ -6,14 +6,14 @@ int listdir(const char *path)
 {
 	struct dirent *polozka;
 	DIR *dir;
- 
+
 	dir = opendir(path);
-	if (dir == NULL) 
+	if (dir == NULL)
 	{
 		perror("nepovedlo se otevrit adresar");
 		return -1;
 	}
- 
+
 	while((polozka = readdir(dir)))
 	{
 		struct stat info;
@@ -34,7 +34,7 @@ int listdir(const char *path)
 		if (S_ISSOCK(info.st_mode))
 			puts("\tSocket");
 	}
- 
+
 	closedir(dir);
 	return 0;
 }

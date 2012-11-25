@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <dirent.h>
- 
+
 int listdir(const char *path)
 {
 	struct dirent *polozka;
 	DIR *dir;
  
 	dir = opendir(path);
-	if (dir == NULL) 
+	if (dir == NULL)
 	{
 		perror("nepovedlo se otevrit adresar");
 		return -1;
