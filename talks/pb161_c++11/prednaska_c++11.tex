@@ -1,0 +1,226 @@
+\input{../commons/document-base.tex}
+
+\title{Nový standard C++11}
+\subtitle{Přednášeno v rámci předmětu PB161}
+\author[]{Mgr.~Šimon~Tóth}
+\institute[FI@MU]{Fakulta informatiky @ Masarykova Univerzita}
+\date{\today}
+
+\newcommand{\CcNote}[1]{% longname
+        Licencováno pod: \textit{Creative Commons #1 3.0 License}.%
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+	\vfill
+	\begin{center}
+		\CcGroupByNcSa{0.33}{0.95ex}\\ {\tiny\CcNote{\CcLongnameByNcSa}}
+		\vspace*{2ex}
+	\end{center}
+\end{frame}
+
+\section{Úvod}
+\subsection{Obsah přednášky}
+
+\begin{frame} \frametitle{Obsah přednášky}
+	\begin{itemize}
+		\item{aktuální stav standardu} \pause
+		\item{novinky v syntaxi} \pause
+		\item{novinky v knihovnách}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Doporučené materiály}
+	\begin{itemize}
+		\item{\url{http://en.wikipedia.org/wiki/C++11}}
+		\item{\url{http://cppreference.com}}
+	\end{itemize}
+\end{frame}
+
+\subsection{Aktuální stav standardu}
+
+\begin{frame} \frametitle{Aktuální stav standardu}
+	\begin{itemize}
+		\item{GCC}
+		\begin{itemize}
+			\item skoro kompletní implementace
+			\item \url{http://gcc.gnu.org/gcc-4.8/cxx0x\_status.html}
+		\end{itemize}
+
+		\item{Clang}
+		\begin{itemize}
+			\item skoro kompletní implementace
+			\item \url{http://clang.llvm.org/cxx\_status.html}
+		\end{itemize}
+
+		\item Visual Studio
+		\begin{itemize}
+			\item plná podpora knihovny
+			\item nedostatky na úrovni základní syntaxe
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Novinky v syntaxi}
+
+\subsection{Nedostatky starého C++}
+
+\begin{frame} \frametitle{\texttt{nullptr}}
+	\begin{itemize}
+		\item \texttt{NULL} je definován jako \texttt{0U}
+		\item problém při přetěžování funkcí/metod
+		\item C++11 přináší nové klíčové slovo \texttt{nullptr}\footnote{demo 1}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Problémy s inicializací}
+	\begin{itemize}
+		\item inicializační syntax není uniformní
+		\item některé způsoby inicializace nefungují v určitých kontextech
+		\item některé způsoby inicializace nefungují s třídami
+		\item C++11 přináší uniformní inicializaci\footnote{demo 2}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Type inference}
+	\begin{itemize}
+		\item popsat typ proměnné může být občas problém
+		\begin{itemize}
+			\item typ je příliš dlouhý
+			\item typ je těžké zjistit
+		\end{itemize}
+		\item C++11 pro tyto případy přináší inferenci typu\footnote{demo 3}
+	\end{itemize}
+\end{frame}
+
+\subsection{Nové vlastnosti v C++11}
+
+\begin{frame} \frametitle{Alternativní for-cyklus}
+	\texttt{for (auto x : v) \{ \}\footnote{demo 4}}
+\end{frame}
+
+\begin{frame} \frametitle{Lambdy}
+	\begin{itemize}
+		\item používání STL algoritmů je v starém C++ nepohodlné
+		\item ideální by byla možnost psát inline funkce na místě použití
+		\item C++ přináší lambdy\footnote{demo 5}\footnote{demo 6}
+	\end{itemize}
+\end{frame}
+
+
+\section{Novinky v knihovnách}
+
+\subsection{Random}
+
+\begin{frame} \frametitle{Random}
+	\begin{itemize}
+		\item Máme N karet, kolik různých sekvencí těchto karet jsme schopni vygenerovat pomocí funkce \texttt{rand()}?
+		\begin{enumerate}
+			\item $N!$
+			\item $N^N$
+			\item $1$
+			\item $N^2$
+			\item $N + N-1 + N-2 ...$
+			\item ani jedna možnost není správně
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Random}
+	\begin{itemize}
+		\item funkce \texttt{rand()} je limitována počtem unikátních seed hodnot
+		\item \texttt{void srand(unsigned seed);}
+		\item $ min(N!,2^{sizeof(unsigned)*CHAR\_BIT}) $
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Random v C++11}
+	\begin{itemize}
+		\item podpora pro různé generátory
+		\item podpora pro různé distribuce\footnote{demo 7}
+	\end{itemize}
+\end{frame}
+
+\subsection{Datové struktury}
+
+\begin{frame} \frametitle{\texttt{array}}
+	\begin{itemize}
+		\item statické pole
+		\item STL rozhraní\footnote{demo 8}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{\texttt{forward\_list}}
+	\begin{itemize}
+		\item jednosměrný spojovaný seznam
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{\texttt{unordered\_set}, \texttt{unordered\_map}}
+	\begin{itemize}
+		\item hash verze \texttt{set} a \texttt{map}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{\texttt{tuple}}
+	\begin{itemize}
+		\item nehomogenní datový typ
+		\item rozšíření \texttt{pair} pro neomezený počet položek\footnote{demo 9}
+	\end{itemize}
+\end{frame}
+
+\subsection{Algoritmy}
+
+\begin{frame} \frametitle{Algoritmy}
+	\begin{itemize}
+		\item \texttt{all\_of}, \texttt{any\_of}, \texttt{none\_of}
+		\item \texttt{shuffle}
+		\item \texttt{copy\_if}
+		\item \texttt{is\_sorted}, \texttt{is\_permutation}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Bind}
+	\begin{itemize}
+		\item C++98 \texttt{bind1st}, \texttt{bind2nd}
+		\item C++11 \texttt{bind} + placeholders\footnote{demo 10}\footnote{demo 11}
+	\end{itemize}
+\end{frame}
+
+\subsection{Práce s časem}
+
+\begin{frame} \frametitle{Práce s časem}
+	\begin{itemize}
+		\item podpora pro systémové, monotónní i high-res hodiny
+		\item podpora pro časové úseky\footnote{demo 12}
+	\end{itemize}
+\end{frame}
+
+\subsection{Chytré ukazatele}
+
+\begin{frame} \frametitle{Chytré ukazatele}
+	\begin{itemize}
+		\item \texttt{unique\_ptr} - unikátní ukazatel, vlastní přidělenou paměť
+		\item \texttt{weak\_ptr} - ukazatel bez držení vlastnictví\footnote{demo 13}
+		\item \texttt{shared\_ptr} - sdílené vlastnictví paměti\footnote{demo 14}
+	\end{itemize}
+\end{frame}
+
+\subsection{Asynchronní operace}
+
+\begin{frame} \frametitle{Asynchronní operace}
+	\begin{itemize}
+		\item nový paměťový model
+		\begin{itemize}
+			\item dva výrazy jsou v kolizi pokud přistupují k jedné proměnné a alespoň jeden výraz do ní zapisuje
+			\item pokud jsou v programu dvě vlákna, které jsou v kolizi nad ne-atomickou proměnnou a tyto vlákna nemají striktní pořadí, jde o race condition
+			\item race condition = nedefinované chování\footnote{demo 15}\footnote{demo 16}\footnote{demo 17}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\input{../commons/kontakt-simontoth.tex}
+
+\end{document}
