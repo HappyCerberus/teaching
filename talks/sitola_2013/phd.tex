@@ -1,68 +1,18 @@
 \input{document-base.tex}
 
-\title{Measuring the immesurable}
-\subtitle{analyzing the impact of different scheduling algorithms}
+\title{User model for the grid}
+\subtitle{analysing the impact of different scheduling algorithms}
 \author[]{Mgr.~Šimon~Tóth}
 \institute[FI@MU]{Faculty of Informatics @ Masaryk University}
 \date{\today}
 
-%\newcommand{\CcNote}[1]{% longname
-%	Licensed under: \textit{Creative Commons #1 3.0 License}.%
-%}
-
 \begin{document}
+
 \begin{frame}
 	\titlepage
-% 	\vfill
-%	\begin{center}
-%		\CcGroupByNcSa{0.33}{0.95ex}\\ {\tiny\CcNote{\CcLongnameByNcSa}}
-%		\vspace*{2ex}
-%	\end{center}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Metrics}
-	\begin{itemize}
-		\item performance metrics
-		\item "quality" metrics
-		\item fairness metrics
-	\end{itemize}
-\end{frame}
-
-
-
-% This will be a talk about measuring quality.
-% But to put you all into perspective I will start with introducing the parallel job scheduling problem,
-% and even before that lets just start by introducing the Czech National Grid.
-
-% Some of you may not know this, but we do have a national grid here in Czech Republic.
-% It's free to use for non-commercial resear purposes, so you can all sing up and use it.
-% And you probably should be interested, not just because we have some interesting hardware that you can use:
-% like GPU clusters, clusters with infiniband for high performance parallel computations, or machines with upto 1TB of memory.
-% But we also have a lot of very expensive software that you can all use for your research.
-% metavo.metacentrum.cz
-
-\section{Introduction}
-\subsection{Czech National Grid}
-
-\begin{frame}
-	\frametitle{Czech National Grid}
-	\begin{itemize}
-		\item available for non-commercial research \pause
-		\item interesting hardware \pause
-		\begin{itemize}
-			\item GPU clusters
-			\item clusters with infiniband
-			\item machines with up to 1TB RAM
-		\end{itemize} \pause
-		\item a lot of very expensive and useful software
-	\end{itemize}
-	\url{http://metavo.metacentrum.cz}
-\end{frame}
-
-% That was the advertising part of my presentation, so lets move to the real content.
-% Let's talk about the parallel job scheduling problem, which is the official term for planning computational jobs onto machines.
-
+\section{Scheduling}
 
 \subsection{Parallel job scheduling problem}
 
@@ -101,6 +51,7 @@
 		\node[draw, singlejob, minimum width = 1.2cm, right=0.1cm of job3] (job5) {$Job_5$};
 		\node[draw, singlejob, minimum width = 1.8cm, right=0.1cm of job4] (job2){$Job_2$};
 	\end{tikzpicture}
+	\vfill
 \end{frame}
 
 \subsection{Specifics of GRID}
@@ -126,30 +77,77 @@
 	\end{itemize}
 \end{frame}
 
-
-% In the context of grid scheduling, we are working with an online variant of the problem.
-% This simply means that new jobs arrive at any time and the system has now knowledge of jobs that haven't yet arrived into the system.
-% This has huge implications on scheduling.
-% For one, providing high priority access to machines is big issue, since the high priority jobs can arrive at any time, we would have to keep these machines empty.
-
-% The problem is also non-clairvoirant, which means that while we know upper bound for the length of the job (after this length the job will be terminated)
-% we don't know the actuall length. This leads to many issues when constructing a schedule, since a job with upper bound 24 hours can easily end in under 10 minutes.
-
-\section{Quality}
-\subsection{Standard metrics vs. quality}
-% how did that happen?
-% what does that mean?
+\subsection{Metrics}
 
 \begin{frame}
-	\frametitle{Wait-time and Slowdown}
-	\begin{itemize}
-		\item most commonly used "quality" indicators
-		\item both suffer from similar flaws
+	\frametitle{Parallel job scheduling problem}
+	\begin{columns}
+	\column{0.40\textwidth}
+		\begin{tikzpicture}[auto,
+			singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+			doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 4.1cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+		]
+			\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach1) { $Resc_1$ }; \\
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach2) { $Resc_2$ }; \\
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach3) { $Resc_3$ }; \\
+			};
+			\node[draw, singlejob, minimum width = 4.5cm, right=0.1cm of mach2] (job1) {$Job_1$};
+			\node[draw, singlejob, minimum width = 2.3cm, right=0.1cm of mach1] (job3) {$Job_3$};
+			\node[draw, singlejob, minimum width = 1.6cm, right=0.1cm of mach3] (job4) {$Job_4$};
+			\node[draw, singlejob, minimum width = 1.2cm, right=0.1cm of job3] (job5) {$Job_5$};
+			\node[draw, singlejob, minimum width = 1.8cm, right=0.1cm of job4] (job2){$Job_2$};
+		\end{tikzpicture}
+		\vfill
+	\column{0.55\textwidth}
+		\visible<2->{
+		\begin{tikzpicture}[auto,
+			singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+			doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 4.1cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+		]
+			\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach1) { $Resc_1$ }; \\
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach2) { $Resc_2$ }; \\
+				\node[rectangle, minimum height = 1cm, minimum width = 1cm ] (mach3) { $Resc_3$ }; \\
+			};
+			\node[draw, singlejob, minimum width = 2.3cm, right=0.1cm of mach2] (job3) {$Job_3$};
+			\node[draw, singlejob, minimum width = 1.6cm, right=0.1cm of mach3] (job4) {$Job_4$};
+			\node[draw, singlejob, minimum width = 1.2cm, right=0.1cm of mach1] (job5) {$Job_5$};
+			\node[draw, singlejob, minimum width = 1.8cm, right=0.1cm of job3] (job2){$Job_2$};
+			\node[draw, singlejob, minimum width = 4.5cm, right=0.1cm of job5] (job1) {$Job_1$};
+		\end{tikzpicture}
+		}
+		\vfill
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metrics}
+	\begin{columns}
+	\column{0.45\textwidth}
 		\begin{itemize}
-			\item large sets of jobs from single user
-			\item different representations of equivalent requests
+			\item performance metrics
+				\begin{itemize}
+					\item system oriented
+					\item user/job oriented
+				\end{itemize}
+			\item fairness metrics
 		\end{itemize}
-	\end{itemize}
+	\column{0.45\textwidth}
+	\visible<2->{
+		\begin{tikzpicture}[thick]
+			\filldraw[fill=blue!20] (3,0) rectangle (6,1);
+			\draw (3,0.5) -- (1,0.5);
+			\draw (1,0.34) -- (1,0.66);
+			\node at (1,1.5) (arr) {arrival};
+			\node at (3,1.5) (sta) {start};
+			\node at (6,1.5) (end) {end};
+			\draw [thick, decoration={ brace, mirror, raise=0.5cm },  decorate ] (1,0) -- (2.9,0) node [pos=0.5,anchor=north,yshift=-0.55cm] {waittime};
+			\draw [thick, decoration={ brace, mirror, raise=0.5cm },  decorate ] (3.1,0) -- (6,0) node [pos=0.5,anchor=north,yshift=-0.55cm] {run-time};
+			\draw [thick, decoration={ brace, mirror, raise=0.5cm },  decorate ] (1,-1) -- (6,-1) node [pos=0.5,anchor=north,yshift=-0.55cm] {response};
+		\end{tikzpicture}
+		}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -161,17 +159,58 @@
 		\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
 			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_1$ };\&
 			\node[draw, singlejob] {$Job_1$};\& \node[draw, singlejob] {$Job_2$};\&
-			\node[singlejob] (j51) {}; \& \node[singlejob] (j52) {}; \\
+			\node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_4$}; \\
 
 			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_2$ };\&
-			\node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_4$}; \&
+			\node[singlejob] (j51) {}; \& \node[singlejob] (j52) {}; \&
 			\node[singlejob] (j61) {}; \& \node[singlejob] (j62) {}; \\
 		};
-		\node[draw,doublejob,onslide={<2->{fill=red!20}}] (outer) [fit=(j51) (j52),label=center:$Job_5$] {};
-		\node[draw,doublejob,onslide={<2->{fill=red!20}}] (outer) [fit=(j61) (j62),label=center:$Job_6$] {};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j51) (j52),label=center:$Job_5$] {};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j61) (j62),label=center:$Job_6$] {};
 	\end{tikzpicture}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Example of bad evaluation}
+	\begin{tikzpicture}[auto,
+		singlejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, outer sep=0pt, inner sep=0pt, text centered},
+		doublejob/.style = {rectangle, minimum height = 1cm, minimum width = 2cm, fill=blue!20, thick, inner sep = 0pt, text centered}
+	]
+		\matrix[column sep=0.1cm, row sep=0.1cm, ampersand replacement=\& ] {
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_1$ };\&
+			\node[draw, singlejob] {$Job_1$};\& \node[draw, singlejob] {$Job_3$};\& \node[draw, singlejob] {$Job_5$};\& \node[draw, singlejob] {$Job_7$}; \\
+
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_2$ };\&
+			\node[draw, singlejob] {$Job_2$};\& \node[draw, singlejob] {$Job_4$};\& \node[draw, singlejob] {$Job_6$};\& \node[draw, singlejob] {$Job_8$}; \\
+
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_3$ };\&
+			\node[singlejob] (j51) {}; \& \node[singlejob] (j61) {}; \& \node[singlejob] (j71) {}; \& \node[singlejob] (j81) {}; \\
+			\node[rectangle, minimum height = 1cm, minimum width = 1cm ] { $Resc_4$ };\&
+			\node[singlejob] (j52) {}; \& \node[singlejob] (j62) {}; \& \node[singlejob] (j72) {}; \& \node[singlejob] (j82) {}; \\
+		};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j51) (j52),label=center:$Job_{10}$] {};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j61) (j62),label=center:$Job_{11}$] {};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j71) (j72),label=center:$Job_{12}$] {};
+		\node[draw,doublejob,fill=red!20] (outer) [fit=(j81) (j82),label=center:$Job_{13}$] {};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metrics}
+	\begin{columns}
+	\column{0.45\textwidth}
+		\begin{itemize}
+			\item performance metrics
+				\begin{itemize}
+					\item system oriented
+					\item user/job oriented
+				\end{itemize}
+			\item fairness metrics
+		\end{itemize}
+	\column{0.45\textwidth}
+		
+	\end{columns}
+\end{frame}
 
 \subsection{Concept of fairness}
 
@@ -179,7 +218,7 @@
 	\frametitle{Fairness}
 	\begin{itemize}
 		\item many different representations
-		\item commonly used approach is fairshare
+		\item MetaCentrum uses algorithmic approach
 		\begin{itemize}
 			\item priority balancing algorithm
 			\item using the system decreases priority
@@ -191,19 +230,37 @@
 	\end{align*}
 \end{frame}
 
+\subsection{Applying metrics}
+
+\begin{frame}
+	\frametitle{Applying metrics}
+	\begin{columns}
+	\column{0.45\textwidth}
+		\begin{itemize}
+			\item metrics are not independent
+			\item requirements are very vague
+		\end{itemize}
+	\column{0.45\textwidth}
+		\begin{tikzpicture}
+		\path[coordinate] (0,0)  coordinate(A)
+	                ++( 60:5cm) coordinate(B)
+	                ++(-60:5cm) coordinate(C);
+		\draw[fill=blue!20] (A) -- (B) -- (C) -- cycle;
+		\node at (0,-0.5cm) (bl) {job metrics};
+		\node at (5cm,-0.5cm) (br) {system metrics};
+		\node at (2.5cm,4.7cm) (top) {fairness};
+		\end{tikzpicture}
+	\end{columns}
+\end{frame}
+
 \section{Quantifying the quality}
 \subsection{The model}
 
-% So to construct the model we really need to come back to the fundamentals.
-% When do we consider a generated schedule good enough.
-% Well, the most fundamental aspect is the satisfaction of users.
-% When the users are satisfied, the schedule is good enough.
-
 \begin{frame}
-	\frametitle{Fundamentals}
+	\frametitle{Back to fundamentals}
 	\begin{itemize}
 		\item quality based of user satisfaction
-		\item modeling user expectations
+		\item modelling user expectations
 	\end{itemize}
 \end{frame}
 
@@ -261,40 +318,83 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Trivial FIFO}
-	\begin{center}
-	\includegraphics[width=0.85\textwidth]{none_fifo.png}
-	\end{center}
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/none_fifo.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Trivial FIFO}
+\end{minipage}
 \end{frame}
+}
 
-\begin{frame}
-	\frametitle{FIFO with backfilling}
-	\begin{center}
-	\includegraphics[width=0.85\textwidth]{none_backfill.png}
-	\end{center}
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/max_backfill.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Backfilling}
+\end{minipage}
 \end{frame}
+}
 
-\begin{frame}
-	\frametitle{FIFO with fairshare}
-	\begin{center}
-	\includegraphics[width=0.85\textwidth]{max_fifo.png}
-	\end{center}
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/max_fifo.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Fairshare}
+\end{minipage}
 \end{frame}
+}
 
-\begin{frame}
-	\frametitle{Fairshare and backfilling}
-	\begin{center}
-	\includegraphics[width=0.85\textwidth]{max_backfill.png}
-	\end{center}
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/max_backfill.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Fairshare \& Backfilling}
+\end{minipage}
 \end{frame}
+}
 
-\begin{frame}
-	\frametitle{Trivial FIFO}
-	\begin{center}
-	\includegraphics[width=0.85\textwidth]{none_fifo.png}
-	\end{center}
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/none_fifo.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Trivial FIFO}
+\end{minipage}
 \end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/metacentrum1.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{MetaCentrum}
+\end{minipage}
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/metacentrum2.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{MetaCentrum - backfill queue}
+\end{minipage}
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{outputs/metacentrum3.png}}
+\begin{frame}[plain]
+\begin{minipage}[t][\textheight]{\textwidth}
+	\color{white}\textbf{Metacentrum}
+\end{minipage}
+\end{frame}
+}
+
+
+
+
+
+
 
 \subsection{Future work}
 
@@ -313,10 +413,10 @@
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item parallel job scheduling in grids \pause
-		\item measuring quality of algorithms for job scheduling \pause
-		\item model for quantifying the quality schedules \pause
-		\item examples of real measurements
+		\item new independent model for analysing generated schedules
+		\item modeling user expectations
+		\item deadline based model
+		\item highly configurable
 	\end{itemize}
 \end{frame}
 
